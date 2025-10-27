@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1281.42 100.73">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: url(#linear-gradient);
+        opacity: .55;
+        stroke: url(#New_Gradient_Swatch_2);
+        stroke-miterlimit: 10;
+        stroke-width: 19px;
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="9.53" y1="50.4" x2="1271.95" y2="50.4" gradientTransform="translate(-.03 -.03)" gradientUnits="userSpaceOnUse">
+      <stop offset=".86" stop-color="#a0622c"/>
+      <stop offset=".94" stop-color="#ae7a4c"/>
+      <stop offset=".97" stop-color="#b5855b"/>
+    </linearGradient>
+    <linearGradient id="New_Gradient_Swatch_2" data-name="New Gradient Swatch 2" x1="0" y1="50.37" x2="1281.42" y2="50.37" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#a0622c"/>
+      <stop offset=".18" stop-color="#ae7a4c"/>
+      <stop offset=".58" stop-color="#d3b89f"/>
+      <stop offset=".98" stop-color="#fbf9f7"/>
+      <stop offset="1" stop-color="#fff"/>
+    </linearGradient>
+  </defs>
+  <path class="cls-1" d="M50.18,9.5h1181.06c22.45,0,40.68,18.23,40.68,40.68v.38c0,22.45-18.23,40.68-40.68,40.68H50.18c-22.45,0-40.68-18.23-40.68-40.68v-.38c0-22.45,18.23-40.68,40.68-40.68Z"/>
+</svg>
