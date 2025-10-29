@@ -1,24 +1,65 @@
-# Kindly Roe Website
+# Kindly Roe — Public Website
 
-Static front-end website for Kindly Roe, providing a professional public presence for funders, partners, and grant providers. This is the public-facing website, not the application code.
+> _A calm, emotionally intelligent website that introduces Kindly Roe and its foundations, built as a fast, accessible static site._
 
-## About
+## Overview
+This repository contains the public-facing website for Kindly Roe, designed to:
+- explain the vision and what the product is becoming,
+- signpost the two pathways, **For Families** and **For Adults**,
+- share thoughtful updates and invite interest,
+- begin to build a gentle sense of community.
 
-This is a hand-drawn illustration style website built with React, TypeScript, and Tailwind CSS. The design features a warm, approachable aesthetic with copper color themes and custom hand-drawn components.
+_This site is intentionally simple, fast, and low-maintenance._
 
-## Running the code
+## What's in here
+- **Vite + React + TypeScript**
+- **Tailwind CSS** with custom tokens for colour and typography
+- Hand-drawn illustration styling and soft copper accents
+- Lightweight component set (shadcn/ui) for cards, buttons, and layout
+- No server or database, no trackers, minimal JavaScript
 
-Run `npm i` to install the dependencies.
+## Local development
+```bash
+npm install
+npm run dev
+npm run build
+npm run preview
+```
 
-Run `npm run dev` to start the development server.
+## Deployment
+This is a **static site**, so you can host the `build/` output almost anywhere.
 
-The development server will typically run on `http://localhost:5173` or similar.
+### Option A — Netlify
+- Connect the repo, build command: `npm run build`
+- Publish directory: `build`
 
-## Features
+### Option B — GitHub Pages
+```bash
+# optional: add a deploy script using e.g. peaceiris/actions-gh-pages in CI
+```
 
-- Hand-drawn illustration style design
-- Copper color theme
-- Responsive layout
-- Custom React components
-- Tailwind CSS styling
-- TypeScript support
+### Option C — Any static host
+- Upload the contents of `build/` to your provider or object storage (e.g. S3 + CloudFront)
+
+## Scripts
+```json
+{
+  "dev": "vite",
+  "build": "vite build",
+  "preview": "vite preview",
+  "lint": "eslint . --ext .ts,.tsx"
+}
+```
+
+## Accessibility & performance
+- Uses semantic HTML and readable defaults
+- Tailored colour tokens for contrast on warm backgrounds
+- Aims for 90+ Lighthouse on performance, a11y, best practices
+
+## Contributing
+At this stage, contributions are limited to small fixes in content and styling. Larger features are planned via an internal board.
+
+## Licence
+All code in this repository is provided under a permissive licence to be confirmed for launch. Content and artwork are reserved.
+
+_Last updated: October 2025_
