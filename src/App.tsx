@@ -3,6 +3,7 @@ import { motion } from 'motion/react'
 import { useEffect } from 'react'
 
 import familyIllustration from '@/assets/family.png'
+import girlIllustration from '@/assets/girl.png'
 import familyCard from '@/assets/familycard.svg'
 import adultCard from '@/assets/girlcard1.svg'
 import kindlyRoeLogo from '@/assets/Kindlyroe.svg'

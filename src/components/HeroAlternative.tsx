@@ -1,6 +1,7 @@
 import { motion } from 'motion/react'
 
 import familyIllustration from '@/assets/family.png'
+import girlIllustration from '@/assets/girl.png'
 import familyCard from '@/assets/familycard.svg'
 import adultCard from '@/assets/girlcard1.svg'
 
@@ -29,17 +30,22 @@ export function HeroAlternative({ logo }: HeroAlternativeProps) {
         <div className="mx-auto max-w-7xl px-6 pb-10">
           {/* Split Layout: Illustration Left, Content Right */}
           <div className="grid grid-cols-1 gap-12 md:grid-cols-2 md:items-center">
-            {/* Left: Family Illustration */}
+            {/* Left: Family Illustrations */}
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
-              className="flex items-center justify-center"
+              className="flex flex-col items-center justify-center space-y-6"
             >
               <img
                 src={familyIllustration}
                 alt="Family illustration"
-                className="h-auto w-full max-w-lg"
+                className="h-auto w-full max-w-md"
+              />
+              <img
+                src={girlIllustration}
+                alt="Girl illustration"
+                className="h-auto w-full max-w-sm"
               />
             </motion.div>
 
