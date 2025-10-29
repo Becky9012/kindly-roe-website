@@ -2,20 +2,14 @@ import { BookOpen, Calendar, Check, FileText, Heart, Lightbulb, MessageCircle } 
 import { motion } from 'motion/react'
 import { useEffect } from 'react'
 
-import familyIllustration from '@/assets/family.png'
 import familyCard from '@/assets/familycard.svg'
-import girlIllustration from '@/assets/girl.png'
 import adultCard from '@/assets/girlcard1.svg'
-import kindlyRoeLogo from '@/assets/Kindlyroe.svg'
 
 import { BrandIllustration } from './components/BrandIllustration'
 import { ImageWithFallback } from './components/figma/ImageWithFallback'
 import { HandDrawnArrow } from './components/HandDrawnArrow'
 import { HandDrawnCircle } from './components/HandDrawnCircle'
 import { HandDrawnUnderline } from './components/HandDrawnUnderline'
-// Uncomment to try different hero designs:
-import { HeroAlternative } from './components/HeroAlternative'
-import HeroGradient from './components/HeroGradient'
 import InterestForm from './components/InterestForm'
 import { KindlyRoeLogo } from './components/KindlyRoeLogo'
 import { RoeLogo } from './components/RoeLogo'
@@ -74,13 +68,13 @@ export default function App() {
               <div className="flex flex-wrap items-center gap-3">
                 <a
                   href="#"
-                  className="h-10 px-5 inline-flex items-center rounded-full bg-copper-600/90 text-white shadow-sm backdrop-blur-sm hover:bg-copper-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-copper-500"
+                  className="h-10 px-5 inline-flex items-center rounded-full bg-copper-600/90 text-white shadow-sm backdrop-blur-sm hover:bg-copper-600 focus-visible:outline-2 focus-visible:outline-copper-500"
                 >
                   For Families · Find guidance
                 </a>
                 <a
                   href="#"
-                  className="h-10 px-5 inline-flex items-center rounded-full bg-white/70 ring-1 ring-black/10 shadow-sm backdrop-blur-sm hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-copper-500"
+                  className="h-10 px-5 inline-flex items-center rounded-full bg-white/70 ring-1 ring-black/10 shadow-sm backdrop-blur-sm hover:bg-white focus-visible:outline-2 focus-visible:outline-copper-500"
                 >
                   For Adults · Explore support
                 </a>
