@@ -23,7 +23,9 @@ export default function InterestForm() {
     <div className="max-w-xl rounded-2xl p-6 kr-bg-eggshell shadow">
       <h2 className="text-xl mb-3">Register your interest</h2>
       {status === 'ok' ? (
-        <p>Thank you. We will be in touch.</p>
+        <p className="text-center text-lg mt-4 text-[color:var(--copper-500)]">
+          Thank you for joining our early circle. Roe will reach out when it's time. 🌿
+        </p>
       ) : (
         <form onSubmit={handleSubmit} name="interest" data-netlify="true" netlify-honeypot="bot-field">
           <input type="hidden" name="form-name" value="interest" />

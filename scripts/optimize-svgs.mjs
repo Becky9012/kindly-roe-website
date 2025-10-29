@@ -16,7 +16,7 @@ const svgoConfig = {
       fn() {
         return {
           element: {
-            enter: (node, parentNode) => {
+            enter: (node) => {
               if (node.name === 'svg' && !node.attributes.viewBox) {
                 node.attributes.viewBox = '0 0 24 24'
               }

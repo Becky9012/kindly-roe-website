@@ -1,6 +1,6 @@
 import { BookOpen, Calendar, Check, FileText, Heart, Lightbulb, MessageCircle } from 'lucide-react'
 import { motion } from 'motion/react'
-import { useEffect, Suspense, lazy } from 'react'
+import { useEffect } from 'react'
 
 import familyCard from '@/assets/familycard.svg'
 import adultCard from '@/assets/girlcard1.svg'
@@ -16,9 +16,6 @@ import { KindlyRoeLogo } from './components/KindlyRoeLogo'
 import { RoeLogo } from './components/RoeLogo'
 import { Button } from './components/ui/button'
 import { Card } from './components/ui/card'
-
-// Lazy load heavy components
-const RollingGallery = lazy(() => import('./components/RollingGallery'))
 
 export default function App() {
   useEffect(() => {
