@@ -18,8 +18,8 @@ export default function InterestForm() {
 
     // Basic guard rails
     if (!name.trim() || !email.trim()) {
-      setErr("Please add your name and email.");
-      return;
+      setErr('Please add your name and email.')
+      return
     }
 
     setSubmitting(true)
@@ -28,31 +28,41 @@ export default function InterestForm() {
 
     try {
       console.log('Starting Firebase submission...')
+      console.log('Firebase db object:', db)
+      console.log('Collection reference:', collection(db, 'interest'))
+
+      // Test Firebase connection first
+      console.log('Testing Firebase connection...')
       
       // Add timeout to prevent infinite hanging
-      const timeoutPromise = new Promise((_, reject) => 
-        setTimeout(() => reject(new Error('Request timeout')), 10000)
+      const timeoutPromise = new Promise((_, reject) =>
+        setTimeout(() => reject(new Error('Request timeout after 10 seconds')), 10000)
       )
-      
+
       const firebasePromise = addDoc(collection(db, 'interest'), {
         name: name.trim(),
         email: email.trim().toLowerCase(),
         message: message.trim(),
         timestamp: serverTimestamp(),
       })
-      
+
+      console.log('Firebase promise created, waiting for response...')
       const docRef = await Promise.race([firebasePromise, timeoutPromise])
-      
+
       console.log('Document written with ID: ', docRef.id)
-      
+
       setOk(true)
       setName('')
       setEmail('')
       setMessage('')
     } catch (error) {
-      console.error('Firebase error:', error)
+      console.error('Firebase error details:', error)
+      console.error('Error name:', error.name)
+      console.error('Error message:', error.message)
+      console.error('Error stack:', error.stack)
       setErr(`Submission failed: ${error.message || 'Unknown error'}`)
     } finally {
+      console.log('Finally block: setting submitting to false')
       setSubmitting(false) // prevents "stuck on Sending…"
     }
   }
