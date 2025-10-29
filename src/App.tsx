@@ -2,7 +2,7 @@ import { BookOpen, Calendar, Check, FileText, Heart, Lightbulb, MessageCircle } 
 import { motion } from 'motion/react'
 import { useEffect } from 'react'
 
-import familyIllustration from '@/assets/family.svg'
+import familyIllustration from '@/assets/family.png'
 import familyCard from '@/assets/familycard.svg'
 import adultCard from '@/assets/girlcard1.svg'
 import kindlyRoeLogo from '@/assets/Kindlyroe.svg'
@@ -18,7 +18,7 @@ import { RoeLogo } from './components/RoeLogo'
 import { Button } from './components/ui/button'
 import { Card } from './components/ui/card'
 // Uncomment to try the alternative hero design:
-// import { HeroAlternative } from './components/HeroAlternative'
+import { HeroAlternative } from './components/HeroAlternative'
 
 export default function App() {
   useEffect(() => {
@@ -55,125 +55,7 @@ export default function App() {
       {/* To try the alternative hero design, replace the section below with:
           <HeroAlternative logo={kindlyRoeLogo} />
       */}
-      <section className="hero-bg relative min-h-screen">
-        {/* Top Navigation Bar */}
-        <nav className="nav-gradient absolute top-0 right-0 left-0 z-50">
-          <div className="navbar-thick mx-auto flex max-w-7xl items-center justify-between px-6">
-            {/* Left side - Kindly Roe Logo */}
-            <div className="flex items-center">
-              <img src={kindlyRoeLogo} alt="Kindly Roe" className="logo-white" />
-            </div>
-
-            {/* Right side - could add menu items here later */}
-            <div className="flex items-center">{/* Placeholder for future menu items */}</div>
-          </div>
-        </nav>
-
-        {/* Hero Content */}
-        <div className="pt-32 md:pt-40">
-          <div className="mx-auto max-w-7xl px-6 pb-10">
-            {/* Family Illustration */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="mb-8 flex justify-center"
-            >
-              <img
-                src={familyIllustration}
-                alt="Family illustration"
-                className="h-auto w-full max-w-2xl"
-              />
-            </motion.div>
-            
-            <div className="mx-auto max-w-3xl text-center">
-              <h1 className="hero-title text-7xl tracking-tight text-[color:var(--ink)] md:text-8xl lg:text-9xl">
-                Whether you're exploring or ready to begin
-              </h1>
-              <p className="hero-subtitle mt-6 text-2xl text-[color:var(--ink)]/70 md:text-3xl lg:text-4xl">
-                Two gentle paths. Choose what fits today.
-              </p>
-            </div>
-            <div className="mt-16 grid grid-cols-1 gap-12 md:grid-cols-2">
-              {/* Families door */}
-              <motion.a
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8 }}
-                className="group relative overflow-hidden rounded-[28px] bg-gradient-to-br from-[#FFFEFA] to-[#F5F0E8] p-8 shadow-[var(--shadow-soft)] ring-2 ring-[#B87333]/30 backdrop-blur transition-all duration-300 hover:shadow-xl hover:ring-[#B87333]/50"
-                aria-label="Go to support for families"
-                role="region"
-                aria-labelledby="families-heading"
-              >
-                <div className="hero-card-families-overlay pointer-events-none absolute inset-0" />
-
-                <div className="relative z-10 flex flex-col items-center text-center">
-                  <div className="relative mb-6">
-                    <img
-                      src={familyCard}
-                      alt="Family navigating support"
-                      className="mx-auto mb-6 aspect-[3/4] w-full max-w-56 object-contain"
-                    />
-                    <div className="hero-card-image-fade pointer-events-none absolute inset-x-0 bottom-0"></div>
-                  </div>
-                  <h3
-                    id="families-heading"
-                    className="hero-card-title text-4xl tracking-[-0.01em] text-[color:var(--ink)] md:text-5xl"
-                  >
-                    For Families
-                  </h3>
-                  <p className="hero-card-description mt-3 text-lg leading-relaxed text-[color:var(--ink)]/70 md:text-xl">
-                    Navigate your journey together. Track patterns, celebrate progress, and build
-                    understanding as a family unit.
-                  </p>
-                  <button className="kr-btn-primary mt-6 bg-[#B87333] text-white hover:bg-[#A65D3A]">
-                    Start family journey
-                  </button>
-                </div>
-              </motion.a>
-
-              {/* Adults door */}
-              <motion.a
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-                className="group relative overflow-hidden rounded-[28px] bg-gradient-to-br from-[#FFFEFA] to-[#F5F0E8] p-8 shadow-[var(--shadow-soft)] ring-2 ring-[#B87333]/30 backdrop-blur transition-all duration-300 hover:shadow-xl hover:ring-[#B87333]/50"
-                aria-label="Go to support for adults"
-                role="region"
-                aria-labelledby="adults-heading"
-              >
-                <div className="hero-card-adults-overlay pointer-events-none absolute inset-0" />
-
-                <div className="relative z-10 flex flex-col items-center text-center">
-                  <div className="relative mb-6">
-                    <img
-                      src={adultCard}
-                      alt="Adult seeking clarity"
-                      className="mx-auto mb-6 aspect-[3/4] w-full max-w-56 object-contain"
-                    />
-                    <div className="hero-card-image-fade pointer-events-none absolute inset-x-0 bottom-0"></div>
-                  </div>
-                  <h3
-                    id="adults-heading"
-                    className="hero-card-title text-4xl tracking-[-0.01em] text-[color:var(--ink)] md:text-5xl"
-                  >
-                    For Adults
-                  </h3>
-                  <p className="hero-card-description mt-3 text-lg leading-relaxed text-[color:var(--ink)]/70 md:text-xl">
-                    Take time for yourself. Reflect on your experiences, understand your needs, and
-                    find clarity in your personal journey.
-                  </p>
-                  <button className="kr-btn-primary mt-6 bg-[#B87333] text-white hover:bg-[#A65D3A]">
-                    Begin personal journey
-                  </button>
-                </div>
-              </motion.a>
-            </div>
-          </div>
-        </div>
-      </section>
+      <HeroAlternative logo={kindlyRoeLogo} />
 
       {/* Main Content Container */}
       <div className="main-container relative w-full bg-[var(--kr-bg)]">

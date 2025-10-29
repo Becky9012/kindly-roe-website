@@ -1,6 +1,6 @@
 import { motion } from 'motion/react'
 
-import familyIllustration from '@/assets/family.svg'
+import familyIllustration from '@/assets/family.png'
 import familyCard from '@/assets/familycard.svg'
 import adultCard from '@/assets/girlcard1.svg'
 
