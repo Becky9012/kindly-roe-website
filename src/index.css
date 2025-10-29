@@ -4679,23 +4679,32 @@ body {
   transform: translateY(-2px) !important;
 }
 
-/* --- Kindly Roe Hero Gradient --- */
+/* Kindly Roe Hero Gradient */
 .hero-gradient {
-  /* base paper so edges never look muddy */
+  /* paper base */
   background:
-    radial-gradient(70% 60% at 20% 35%, #C97B47 0%, #E9C29E 28%, transparent 60%),
-    radial-gradient(65% 55% at 80% 40%, #1C7A77 0%, #9BC8C6 32%, transparent 62%),
-    linear-gradient(#F7F2EA, #F7F2EA);
+    radial-gradient(62% 54% at 22% 38%, #c97b47 0%, #e9c29e 32%, rgba(233, 194, 158, 0) 66%),
+    radial-gradient(60% 52% at 78% 34%, #1c7a77 0%, #9bc8c6 34%, rgba(155, 200, 198, 0) 68%),
+    linear-gradient(#f7f2ea, #f7f2ea);
   position: relative;
 }
 
 .hero-gradient::after {
-  /* soft vignette to echo the mockups */
-  content: "";
+  /* gentler vignette and a brighter centre */
+  content: '';
   position: absolute;
   inset: 0;
-  background: rgba(0,0,0,0.06);
-  -webkit-mask-image: radial-gradient(120% 120% at 50% 40%, #000 55%, transparent 100%);
-          mask-image: radial-gradient(120% 120% at 50% 40%, #000 55%, transparent 100%);
+  background: rgba(0, 0, 0, 0.045);
+  -webkit-mask-image: radial-gradient(125% 120% at 50% 42%, #000 52%, transparent 100%);
+  mask-image: radial-gradient(125% 120% at 50% 42%, #000 52%, transparent 100%);
   pointer-events: none;
+}
+
+.hero-noise {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.04;
+  background-image: url('/textures/paper-noise.png'); /* 2–4 KB */
+  background-size: 600px 600px;
 }
