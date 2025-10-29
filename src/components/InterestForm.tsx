@@ -46,66 +46,76 @@ export default function InterestForm() {
     <div style={{ border: '2px solid red', padding: '20px', margin: '20px' }}>
       <h3 style={{ color: 'red', marginBottom: '10px' }}>DEBUG: InterestForm is rendering</h3>
       <form onSubmit={handleSubmit} className="mx-auto max-w-xl px-4 pb-16">
-      <div className="space-y-3">
-        <label htmlFor="name" className="block text-center text-sm">
-          Name
-        </label>
-        <input
-          id="name"
-          className="w-full rounded border px-3 py-2"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          required
-        />
+        <div className="space-y-3">
+          <label htmlFor="name" className="block text-center text-sm">
+            Name
+          </label>
+          <input
+            id="name"
+            className="w-full rounded border px-3 py-2"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
 
-        <label htmlFor="email" className="block text-center text-sm">
-          Email
-        </label>
-        <input
-          id="email"
-          className="w-full rounded border px-3 py-2"
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
+          <label htmlFor="email" className="block text-center text-sm">
+            Email
+          </label>
+          <input
+            id="email"
+            className="w-full rounded border px-3 py-2"
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
 
-        <label htmlFor="message" className="block text-center text-sm">
-          Message (optional)
-        </label>
-        <textarea
-          id="message"
-          className="w-full rounded border px-3 py-2"
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          rows={3}
-        />
-      </div>
+          <label htmlFor="message" className="block text-center text-sm">
+            Message (optional)
+          </label>
+          <textarea
+            id="message"
+            className="w-full rounded border px-3 py-2"
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            rows={3}
+          />
+        </div>
 
-      <button
-        type="submit"
-        className="mt-4 w-full rounded-md bg-red-500 px-4 py-3 text-base font-medium text-white shadow-sm transition hover:bg-red-600 focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:outline-none disabled:bg-gray-300 disabled:text-gray-700 disabled:shadow-none"
-        disabled={submitting || !name.trim() || !email.trim()}
-        style={{ 
-          display: 'block', 
-          visibility: 'visible', 
-          opacity: 1,
-          position: 'relative',
-          zIndex: 10
-        }}
-      >
-        {submitting ? 'Sending…' : 'Send'}
-      </button>
+         <div style={{ marginTop: '16px', width: '100%' }}>
+           <button
+             type="submit"
+             style={{
+               width: '100%',
+               padding: '12px 16px',
+               backgroundColor: 'red',
+               color: 'white',
+               border: 'none',
+               borderRadius: '6px',
+               fontSize: '16px',
+               fontWeight: '500',
+               cursor: 'pointer',
+               display: 'block',
+               visibility: 'visible',
+               opacity: 1,
+               position: 'relative',
+               zIndex: 999,
+             }}
+             disabled={submitting || !name.trim() || !email.trim()}
+           >
+             {submitting ? 'Sending…' : 'Send'}
+           </button>
+         </div>
 
-      {ok && (
-        <p className="text-sm text-green-700">
-          Thank you for joining our early circle. We'll be in touch.
-        </p>
-      )}
-      {err && (
-        <p className="text-sm text-red-700">Sorry, something went wrong. Please try again.</p>
-      )}
-    </form>
+        {ok && (
+          <p className="text-sm text-green-700">
+            Thank you for joining our early circle. We'll be in touch.
+          </p>
+        )}
+        {err && (
+          <p className="text-sm text-red-700">Sorry, something went wrong. Please try again.</p>
+        )}
+      </form>
     </div>
   )
 }
