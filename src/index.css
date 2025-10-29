@@ -4709,13 +4709,15 @@ body {
   background-size: 600px 600px;
 }
 
-/* Improve image rendering for crisp SVGs */
+/* Improve image rendering for crisp SVGs and prevent drags */
 img {
+  -webkit-user-drag: none;
   image-rendering: -webkit-optimize-contrast;
 }
 
-/* Prevent accidental image drags on desktop */
-img {
-  -webkit-user-drag: none;
-  user-select: none;
+@media (prefers-reduced-motion: reduce) {
+  .motion-soft {
+    transition: none !important;
+    transform: none !important;
+  }
 }

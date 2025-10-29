@@ -3,8 +3,8 @@ import { motion } from 'motion/react'
 import { useEffect } from 'react'
 
 import familyIllustration from '@/assets/family.png'
-import girlIllustration from '@/assets/girl.png'
 import familyCard from '@/assets/familycard.svg'
+import girlIllustration from '@/assets/girl.png'
 import adultCard from '@/assets/girlcard1.svg'
 import kindlyRoeLogo from '@/assets/Kindlyroe.svg'
 
@@ -13,14 +13,14 @@ import { ImageWithFallback } from './components/figma/ImageWithFallback'
 import { HandDrawnArrow } from './components/HandDrawnArrow'
 import { HandDrawnCircle } from './components/HandDrawnCircle'
 import { HandDrawnUnderline } from './components/HandDrawnUnderline'
+// Uncomment to try different hero designs:
+import { HeroAlternative } from './components/HeroAlternative'
+import HeroGradient from './components/HeroGradient'
 import InterestForm from './components/InterestForm'
 import { KindlyRoeLogo } from './components/KindlyRoeLogo'
 import { RoeLogo } from './components/RoeLogo'
 import { Button } from './components/ui/button'
 import { Card } from './components/ui/card'
-// Uncomment to try different hero designs:
-import { HeroAlternative } from './components/HeroAlternative'
-import HeroGradient from './components/HeroGradient'
 
 export default function App() {
   useEffect(() => {
@@ -53,62 +53,56 @@ export default function App() {
 
   return (
     <>
-      {/* HERO */}
+      {/* Hero */}
       <section className="relative overflow-hidden">
-        {/* soft backdrop */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(80%_60%_at_15%_35%,#d8b08a33_0%,transparent_55%),radial-gradient(80%_60%_at_85%_35%,#9cc6c033_0%,transparent_55%)]"
-        />
+        {/* soft background */}
+        <div className="pointer-events-none absolute inset-0">
+          <div className="absolute -top-24 -left-24 h-72 w-72 rounded-full bg-copper-200/25 blur-2xl" />
+          <div className="absolute top-0 right-[-10%] h-[22rem] w-[22rem] rounded-full bg-teal-300/20 blur-3xl" />
+        </div>
 
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 md:py-24">
-          <div className="grid gap-10 md:grid-cols-2 items-center">
-            {/* Left: copy + CTAs */}
-            <div className="order-2 md:order-1 max-w-xl">
-              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-semibold leading-snug">
+        <div className="relative mx-auto max-w-6xl px-4 py-10 md:py-14 lg:py-16">
+          <div className="grid items-center gap-8 md:grid-cols-2">
+            {/* copy */}
+            <div className="max-w-lg space-y-4">
+              <h1 className="text-2xl sm:text-3xl md:text-4xl leading-tight">
                 Finding your way through the maze, together
               </h1>
-              <p className="mt-4 text-base leading-relaxed text-neutral-700 max-w-prose">
+              <p className="text-sm md:text-base text-neutral-700/90">
                 Two gentle paths. Choose what fits today.
               </p>
-
-              {/* Path cards / buttons */}
-              <div className="mt-6 space-y-3">
+              <div className="flex flex-wrap items-center gap-3">
                 <a
-                  href="#families"
-                  className="inline-flex items-center rounded-full bg-white/70 backdrop-blur px-5 py-3 text-sm font-medium shadow-sm ring-1 ring-black/5 hover:bg-white transition"
+                  href="#"
+                  className="h-10 px-5 inline-flex items-center rounded-full bg-copper-600/90 text-white shadow-sm backdrop-blur-sm hover:bg-copper-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-copper-500"
                 >
                   For Families · Find guidance
                 </a>
                 <a
-                  href="#adults"
-                  className="ml-3 inline-flex items-center rounded-full bg-white/50 backdrop-blur px-5 py-3 text-sm font-medium shadow-sm ring-1 ring-black/5 hover:bg-white transition"
+                  href="#"
+                  className="h-10 px-5 inline-flex items-center rounded-full bg-white/70 ring-1 ring-black/10 shadow-sm backdrop-blur-sm hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-copper-500"
                 >
                   For Adults · Explore support
                 </a>
               </div>
             </div>
 
-            {/* Right: illustration stage */}
-            <div className="order-1 md:order-2">
-              {/* Stage prevents layout jump and gives us a stable anchor for images */}
-              <div className="relative mx-auto max-w-md md:max-w-none h-72 sm:h-80 md:h-[22rem] lg:h-[26rem]">
-                {/* Left figure */}
-                <img
-                  src={adultCard}
-                  alt=""
-                  className="absolute left-0 bottom-0 w-40 sm:w-48 md:w-56 lg:w-64 drop-shadow-[0_6px_24px_rgba(0,0,0,.08)] select-none"
-                  loading="eager"
-                />
-
-                {/* Right group */}
-                <img
-                  src={familyCard}
-                  alt=""
-                  className="absolute right-2 md:right-6 bottom-0 w-40 sm:w-48 md:w-56 lg:w-64 drop-shadow-[0_6px_24px_rgba(0,0,0,.08)] select-none"
-                  loading="eager"
-                />
-              </div>
+            {/* illustration stage */}
+            <div className="relative h-72 sm:h-80 md:h-[24rem]">
+              <img
+                src={familyCard}
+                alt=""
+                aria-hidden="true"
+                className="pointer-events-none select-none absolute bottom-0 left-0 w-44 sm:w-52 md:w-56 lg:w-60 drop-shadow-[0_8px_30px_rgba(0,0,0,0.12)]"
+                loading="eager"
+              />
+              <img
+                src={adultCard}
+                alt=""
+                aria-hidden="true"
+                className="pointer-events-none select-none absolute bottom-0 right-2 w-44 sm:w-48 md:w-52 lg:w-60 drop-shadow-[0_8px_30px_rgba(0,0,0,0.12)]"
+                loading="eager"
+              />
             </div>
           </div>
         </div>
