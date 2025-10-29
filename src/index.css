@@ -4708,3 +4708,14 @@ body {
   background-image: url('/textures/paper-noise.png'); /* 2–4 KB */
   background-size: 600px 600px;
 }
+
+/* Improve image rendering for crisp SVGs */
+img {
+  image-rendering: -webkit-optimize-contrast;
+}
+
+/* Prevent accidental image drags on desktop */
+img {
+  -webkit-user-drag: none;
+  user-select: none;
+}

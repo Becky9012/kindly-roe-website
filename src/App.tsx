@@ -53,13 +53,66 @@ export default function App() {
 
   return (
     <>
-      {/* Hero Section with Navigation - Full Background */}
-      {/* Choose your hero design:
-          Option 1: <HeroGradient />
-          Option 2: <HeroAlternative logo={kindlyRoeLogo} />
-          Option 3: Original hero section (commented out below)
-      */}
-      <HeroGradient />
+      {/* HERO */}
+      <section className="relative overflow-hidden">
+        {/* soft backdrop */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(80%_60%_at_15%_35%,#d8b08a33_0%,transparent_55%),radial-gradient(80%_60%_at_85%_35%,#9cc6c033_0%,transparent_55%)]"
+        />
+
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+          <div className="grid gap-10 md:grid-cols-2 items-center">
+            {/* Left: copy + CTAs */}
+            <div className="order-2 md:order-1 max-w-xl">
+              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-semibold leading-snug">
+                Finding your way through the maze, together
+              </h1>
+              <p className="mt-4 text-base leading-relaxed text-neutral-700 max-w-prose">
+                Two gentle paths. Choose what fits today.
+              </p>
+
+              {/* Path cards / buttons */}
+              <div className="mt-6 space-y-3">
+                <a
+                  href="#families"
+                  className="inline-flex items-center rounded-full bg-white/70 backdrop-blur px-5 py-3 text-sm font-medium shadow-sm ring-1 ring-black/5 hover:bg-white transition"
+                >
+                  For Families · Find guidance
+                </a>
+                <a
+                  href="#adults"
+                  className="ml-3 inline-flex items-center rounded-full bg-white/50 backdrop-blur px-5 py-3 text-sm font-medium shadow-sm ring-1 ring-black/5 hover:bg-white transition"
+                >
+                  For Adults · Explore support
+                </a>
+              </div>
+            </div>
+
+            {/* Right: illustration stage */}
+            <div className="order-1 md:order-2">
+              {/* Stage prevents layout jump and gives us a stable anchor for images */}
+              <div className="relative mx-auto max-w-md md:max-w-none h-72 sm:h-80 md:h-[22rem] lg:h-[26rem]">
+                {/* Left figure */}
+                <img
+                  src={adultCard}
+                  alt=""
+                  className="absolute left-0 bottom-0 w-40 sm:w-48 md:w-56 lg:w-64 drop-shadow-[0_6px_24px_rgba(0,0,0,.08)] select-none"
+                  loading="eager"
+                />
+
+                {/* Right group */}
+                <img
+                  src={familyCard}
+                  alt=""
+                  className="absolute right-2 md:right-6 bottom-0 w-40 sm:w-48 md:w-56 lg:w-64 drop-shadow-[0_6px_24px_rgba(0,0,0,.08)] select-none"
+                  loading="eager"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* Main Content Container */}
       <div className="main-container relative w-full bg-[var(--kr-bg)]">
