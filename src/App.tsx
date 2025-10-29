@@ -18,8 +18,9 @@ import { KindlyRoeLogo } from './components/KindlyRoeLogo'
 import { RoeLogo } from './components/RoeLogo'
 import { Button } from './components/ui/button'
 import { Card } from './components/ui/card'
-// Uncomment to try the alternative hero design:
+// Uncomment to try different hero designs:
 import { HeroAlternative } from './components/HeroAlternative'
+import HeroGradient from './components/HeroGradient'
 
 export default function App() {
   useEffect(() => {
@@ -53,10 +54,12 @@ export default function App() {
   return (
     <>
       {/* Hero Section with Navigation - Full Background */}
-      {/* To try the alternative hero design, replace the section below with:
-          <HeroAlternative logo={kindlyRoeLogo} />
+      {/* Choose your hero design:
+          Option 1: <HeroGradient />
+          Option 2: <HeroAlternative logo={kindlyRoeLogo} />
+          Option 3: Original hero section (commented out below)
       */}
-      <HeroAlternative logo={kindlyRoeLogo} />
+      <HeroGradient />
 
       {/* Main Content Container */}
       <div className="main-container relative w-full bg-[var(--kr-bg)]">
