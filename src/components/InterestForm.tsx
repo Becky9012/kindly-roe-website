@@ -1,20 +1,28 @@
 import { useState } from 'react'
+import { db } from '../firebaseConfig'
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore'
 
 export default function InterestForm() {
-  const [status, setStatus] = useState<'idle' | 'ok' | 'err'>('idle')
+  const [formData, setFormData] = useState({ name: '', email: '', message: '' })
+  const [status, setStatus] = useState<'idle' | 'sending' | 'ok' | 'err'>('idle')
 
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value })
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    const form = e.currentTarget
-    const data = new FormData(form)
-    // Netlify requires a "form-name" field
-    data.append('form-name', 'interest')
+    setStatus('sending')
 
     try {
-      await fetch('/', { method: 'POST', body: data })
+      await addDoc(collection(db, 'interest'), {
+        ...formData,
+        timestamp: serverTimestamp(),
+      })
       setStatus('ok')
-      form.reset()
-    } catch {
+      setFormData({ name: '', email: '', message: '' })
+    } catch (error) {
+      console.error('Error submitting form:', error)
       setStatus('err')
     }
   }
@@ -27,21 +35,18 @@ export default function InterestForm() {
           Thank you for joining our early circle. Roe will reach out when it's time. 🌿
         </p>
       ) : (
-        <form
-          onSubmit={handleSubmit}
-          name="interest"
-          data-netlify="true"
-          netlify-honeypot="bot-field"
-        >
-          <input type="hidden" name="form-name" value="interest" />
-          <p className="hidden">
-            <label>
-              Don't fill this out if you're human: <input name="bot-field" />
-            </label>
-          </p>
+        <form onSubmit={handleSubmit} className="space-y-4">
           <label className="mb-2 block">
             Name
-            <input className="mt-1 w-full rounded-lg border p-2" type="text" name="name" required />
+            <input
+              className="mt-1 w-full rounded-lg border p-2"
+              type="text"
+              name="name"
+              placeholder="Your name"
+              value={formData.name}
+              onChange={handleChange}
+              required
+            />
           </label>
           <label className="mb-2 block">
             Email
@@ -49,6 +54,9 @@ export default function InterestForm() {
               className="mt-1 w-full rounded-lg border p-2"
               type="email"
               name="email"
+              placeholder="Your email"
+              value={formData.email}
+              onChange={handleChange}
               required
             />
           </label>
@@ -57,14 +65,21 @@ export default function InterestForm() {
             <textarea
               className="mt-1 w-full rounded-lg border p-2"
               name="message"
+              placeholder="Message"
+              value={formData.message}
+              onChange={handleChange}
               rows={4}
-            ></textarea>
+            />
           </label>
-          <button className="kr-bg-eggshell rounded-xl px-4 py-2" type="submit">
-            Send
+          <button
+            className="rounded-xl px-4 py-2 bg-[#73896e] text-white disabled:opacity-50"
+            type="submit"
+            disabled={status === 'sending'}
+          >
+            {status === 'sending' ? 'Sending...' : 'Submit'}
           </button>
           {status === 'err' && (
-            <p className="mt-2">Sorry, something went wrong. Please try again.</p>
+            <p className="mt-2 text-red-600">Oops! Something went wrong. Please try again.</p>
           )}
         </form>
       )}
