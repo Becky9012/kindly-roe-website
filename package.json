@@ -64,6 +64,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "preview": "vite preview",
     "setup-github": "node scripts/setup-github-project.mjs",
     "setup-github:dry-run": "node scripts/setup-github-project.mjs --dry-run"
   }
