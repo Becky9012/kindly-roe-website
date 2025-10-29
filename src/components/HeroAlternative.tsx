@@ -1,8 +1,8 @@
 import { motion } from 'motion/react'
 
 import familyIllustration from '@/assets/family.png'
-import girlIllustration from '@/assets/girl.png'
 import familyCard from '@/assets/familycard.svg'
+import girlIllustration from '@/assets/girl.png'
 import adultCard from '@/assets/girlcard1.svg'
 
 import { HandDrawnCircle } from './HandDrawnCircle'

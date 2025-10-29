@@ -1,14 +1,14 @@
+import { addDoc, collection, serverTimestamp } from 'firebase/firestore'
 import { useState } from 'react'
+
 import { db } from '../firebaseConfig'
-import { collection, addDoc, serverTimestamp } from 'firebase/firestore'
 
 export default function InterestForm() {
-  const [formData, setFormData] = useState({ name: '', email: '', message: '' })
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [message, setMessage] = useState('')
   const [status, setStatus] = useState<'idle' | 'sending' | 'ok' | 'err'>('idle')
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value })
-  }
+  const submitting = status === 'sending'
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -16,11 +16,15 @@ export default function InterestForm() {
 
     try {
       await addDoc(collection(db, 'interest'), {
-        ...formData,
+        name,
+        email,
+        message,
         timestamp: serverTimestamp(),
       })
       setStatus('ok')
-      setFormData({ name: '', email: '', message: '' })
+      setName('')
+      setEmail('')
+      setMessage('')
     } catch (error) {
       console.error('Error submitting form:', error)
       setStatus('err')
@@ -35,52 +39,67 @@ export default function InterestForm() {
           Thank you for joining our early circle. Roe will reach out when it's time. 🌿
         </p>
       ) : (
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <label className="mb-2 block">
-            Name
+        <form onSubmit={handleSubmit} className="space-y-3" noValidate>
+          {/* Name */}
+          <div>
+            <label className="sr-only" htmlFor="name">Name</label>
             <input
-              className="mt-1 w-full rounded-lg border p-2"
-              type="text"
+              id="name"
               name="name"
-              placeholder="Your name"
-              value={formData.name}
-              onChange={handleChange}
+              value={name}
+              onChange={(e) => setName(e.target.value)}
               required
+              className="w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm placeholder-neutral-500 focus:border-neutral-500 focus:outline-none focus:ring-1 focus:ring-neutral-500"
+              placeholder="Your name"
             />
-          </label>
-          <label className="mb-2 block">
-            Email
+          </div>
+
+          {/* Email */}
+          <div>
+            <label className="sr-only" htmlFor="email">Email</label>
             <input
-              className="mt-1 w-full rounded-lg border p-2"
+              id="email"
               type="email"
               name="email"
-              placeholder="Your email"
-              value={formData.email}
-              onChange={handleChange}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               required
+              className="w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm placeholder-neutral-500 focus:border-neutral-500 focus:outline-none focus:ring-1 focus:ring-neutral-500"
+              placeholder="Your email"
             />
-          </label>
-          <label className="mb-4 block">
-            Message (optional)
+          </div>
+
+          {/* Message */}
+          <div>
+            <label className="sr-only" htmlFor="message">Message</label>
             <textarea
-              className="mt-1 w-full rounded-lg border p-2"
+              id="message"
               name="message"
-              placeholder="Message"
-              value={formData.message}
-              onChange={handleChange}
-              rows={4}
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              rows={3}
+              className="w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm placeholder-neutral-500 focus:border-neutral-500 focus:outline-none focus:ring-1 focus:ring-neutral-500"
+              placeholder="Message (optional)"
             />
-          </label>
-          <button
-            className="rounded-xl px-4 py-2 bg-[#73896e] text-white disabled:opacity-50"
-            type="submit"
-            disabled={status === 'sending'}
-          >
-            {status === 'sending' ? 'Sending...' : 'Submit'}
-          </button>
-          {status === 'err' && (
-            <p className="mt-2 text-red-600">Oops! Something went wrong. Please try again.</p>
-          )}
+          </div>
+
+          {/* Button block */}
+          <div className="mt-4 flex items-center gap-3">
+            <button
+              type="submit"
+              disabled={submitting}
+              className="inline-flex items-center rounded-full border border-neutral-700 px-5 py-2 text-sm font-medium tracking-wide text-neutral-900 hover:bg-neutral-900 hover:text-white disabled:opacity-60 disabled:cursor-not-allowed transition"
+            >
+              {submitting ? "Sending…" : "Submit"}
+            </button>
+            {/* subtle status text for screen readers and UX */}
+            <span
+              aria-live="polite"
+              className="text-sm text-neutral-600"
+            >
+              {status === 'err' ? 'Error occurred' : ''}
+            </span>
+          </div>
         </form>
       )}
     </div>
