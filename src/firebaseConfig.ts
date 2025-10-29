@@ -1,7 +1,7 @@
 // src/firebaseConfig.ts
 
 import { initializeApp } from 'firebase/app'
-import { getFirestore, connectFirestoreEmulator } from 'firebase/firestore'
+import { connectFirestoreEmulator, getFirestore } from 'firebase/firestore'
 
 const firebaseConfig = {
   apiKey: 'AIzaSyB_073uTboZI0hwAAgSR8BZ533wwfkekg',
@@ -21,5 +21,5 @@ export const db = getFirestore(app)
 console.log('Firebase initialized:', {
   projectId: firebaseConfig.projectId,
   authDomain: firebaseConfig.authDomain,
-  apiKey: firebaseConfig.apiKey.substring(0, 10) + '...'
+  apiKey: firebaseConfig.apiKey.substring(0, 10) + '...',
 })

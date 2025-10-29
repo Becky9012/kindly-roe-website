@@ -33,7 +33,7 @@ export default function InterestForm() {
 
       // Test Firebase connection first
       console.log('Testing Firebase connection...')
-      
+
       // Add timeout to prevent infinite hanging
       const timeoutPromise = new Promise((_, reject) =>
         setTimeout(() => reject(new Error('Request timeout after 10 seconds')), 10000)
@@ -59,8 +59,19 @@ export default function InterestForm() {
       console.error('Firebase error details:', error)
       console.error('Error name:', error.name)
       console.error('Error message:', error.message)
+      console.error('Error code:', error.code)
       console.error('Error stack:', error.stack)
-      setErr(`Submission failed: ${error.message || 'Unknown error'}`)
+      
+      // Check for specific Firestore permission errors
+      if (error.code === 'permission-denied') {
+        setErr('Permission denied: Check Firestore security rules')
+      } else if (error.code === 'unauthenticated') {
+        setErr('Authentication required: Check Firebase configuration')
+      } else if (error.message.includes('timeout')) {
+        setErr('Request timeout: Check network connection')
+      } else {
+        setErr(`Submission failed: ${error.message || 'Unknown error'}`)
+      }
     } finally {
       console.log('Finally block: setting submitting to false')
       setSubmitting(false) // prevents "stuck on Sending…"
