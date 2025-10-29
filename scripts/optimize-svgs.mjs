@@ -20,19 +20,19 @@ const svgoConfig = {
               if (node.name === 'svg' && !node.attributes.viewBox) {
                 node.attributes.viewBox = '0 0 24 24'
               }
-            }
-          }
+            },
+          },
         }
-      }
-    }
-  ]
+      },
+    },
+  ],
 }
 
 function optimizeSvg(filePath) {
   try {
     const content = readFileSync(filePath, 'utf8')
     const result = optimize(content, { path: filePath, ...svgoConfig })
-    
+
     if (result.data) {
       writeFileSync(filePath, result.data)
       console.log(`✓ Optimized: ${filePath}`)
@@ -47,11 +47,11 @@ function optimizeSvg(filePath) {
 function processDirectory(dirPath) {
   const items = readdirSync(dirPath)
   let optimizedCount = 0
-  
+
   for (const item of items) {
     const fullPath = join(dirPath, item)
     const stat = statSync(fullPath)
-    
+
     if (stat.isDirectory()) {
       optimizedCount += processDirectory(fullPath)
     } else if (extname(item) === '.svg') {
@@ -60,7 +60,7 @@ function processDirectory(dirPath) {
       }
     }
   }
-  
+
   return optimizedCount
 }
 

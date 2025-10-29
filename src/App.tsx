@@ -2,6 +2,7 @@ import { BookOpen, Calendar, Check, FileText, Heart, Lightbulb, MessageCircle } 
 import { motion } from 'motion/react'
 import { useEffect } from 'react'
 
+import familyIllustration from '@/assets/family.svg'
 import familyCard from '@/assets/familycard.svg'
 import adultCard from '@/assets/girlcard1.svg'
 import kindlyRoeLogo from '@/assets/Kindlyroe.svg'
@@ -16,6 +17,8 @@ import { KindlyRoeLogo } from './components/KindlyRoeLogo'
 import { RoeLogo } from './components/RoeLogo'
 import { Button } from './components/ui/button'
 import { Card } from './components/ui/card'
+// Uncomment to try the alternative hero design:
+// import { HeroAlternative } from './components/HeroAlternative'
 
 export default function App() {
   useEffect(() => {
@@ -49,6 +52,9 @@ export default function App() {
   return (
     <>
       {/* Hero Section with Navigation - Full Background */}
+      {/* To try the alternative hero design, replace the section below with:
+          <HeroAlternative logo={kindlyRoeLogo} />
+      */}
       <section className="hero-bg relative min-h-screen">
         {/* Top Navigation Bar */}
         <nav className="nav-gradient absolute top-0 right-0 left-0 z-50">
@@ -66,6 +72,20 @@ export default function App() {
         {/* Hero Content */}
         <div className="pt-32 md:pt-40">
           <div className="mx-auto max-w-7xl px-6 pb-10">
+            {/* Family Illustration */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="mb-8 flex justify-center"
+            >
+              <img
+                src={familyIllustration}
+                alt="Family illustration"
+                className="h-auto w-full max-w-2xl"
+              />
+            </motion.div>
+            
             <div className="mx-auto max-w-3xl text-center">
               <h1 className="hero-title text-7xl tracking-tight text-[color:var(--ink)] md:text-8xl lg:text-9xl">
                 Whether you're exploring or ready to begin
