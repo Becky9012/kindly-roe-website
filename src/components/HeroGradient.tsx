@@ -1,5 +1,4 @@
-import familyIllustration from '@/assets/family.png'
-import girlIllustration from '@/assets/girl.png'
+// Using direct paths to public/images for better Netlify compatibility
 
 export default function HeroGradient() {
   return (
@@ -13,7 +12,7 @@ export default function HeroGradient() {
         {/* Left illustration */}
         <div className="mx-auto max-w-md lg:mx-0 lg:w-[42%]">
           <img
-            src={girlIllustration}
+            src="/images/adult-hero.png"
             alt="An adult pausing to take stock"
             className="h-auto w-full select-none"
           />
@@ -65,9 +64,9 @@ export default function HeroGradient() {
           {/* Optional second illustration, visible from sm+ */}
           <div className="mt-8 hidden sm:block">
             <img
-              src={familyIllustration}
+              src="/images/family-hero.png"
               alt="A caring adult and child, hand in hand"
-              className="ml-auto h-auto w-full max-w-md select-none"
+              className="ml-auto h-auto w-[360px] select-none"
             />
           </div>
         </div>
