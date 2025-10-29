@@ -1,6 +1,6 @@
 import { BookOpen, Calendar, Check, FileText, Heart, Lightbulb, MessageCircle } from 'lucide-react'
 import { motion } from 'motion/react'
-import { useEffect } from 'react'
+import { useEffect, Suspense, lazy } from 'react'
 
 import familyCard from '@/assets/familycard.svg'
 import adultCard from '@/assets/girlcard1.svg'
@@ -11,10 +11,14 @@ import { ImageWithFallback } from './components/figma/ImageWithFallback'
 import { HandDrawnArrow } from './components/HandDrawnArrow'
 import { HandDrawnCircle } from './components/HandDrawnCircle'
 import { HandDrawnUnderline } from './components/HandDrawnUnderline'
+import InterestForm from './components/InterestForm'
 import { KindlyRoeLogo } from './components/KindlyRoeLogo'
 import { RoeLogo } from './components/RoeLogo'
 import { Button } from './components/ui/button'
 import { Card } from './components/ui/card'
+
+// Lazy load heavy components
+const RollingGallery = lazy(() => import('./components/RollingGallery'))
 
 export default function App() {
   useEffect(() => {
@@ -788,6 +792,29 @@ export default function App() {
                   </div>
                 </div>
               </Card>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* Interest Signup Section */}
+        <section className="kr-bg-eggshell border-y border-[color:var(--ink)]/15 px-6 py-20">
+          <div className="mx-auto max-w-7xl">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="text-center"
+            >
+              <h2 className="mb-4 text-3xl font-bold text-[color:var(--ink)] md:text-4xl">
+                Stay in the loop
+              </h2>
+              <p className="mb-8 text-lg text-[color:var(--ink)]/80">
+                Be the first to know when Roe is ready to help your family.
+              </p>
+              <div className="flex justify-center">
+                <InterestForm />
+              </div>
             </motion.div>
           </div>
         </section>

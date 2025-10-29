@@ -67,6 +67,7 @@
     "postcss": "^8.5.6",
     "prettier": "^3.6.2",
     "prettier-plugin-tailwindcss": "^0.7.1",
+    "svgo": "^4.0.0",
     "tailwindcss": "^4.1.14",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.46.2",
@@ -80,6 +81,7 @@
     "lint:fix": "eslint . --ext .ts,.tsx --fix",
     "format": "prettier . -w",
     "format:check": "prettier . -c",
+    "optimize-svgs": "node scripts/optimize-svgs.mjs",
     "setup-github": "node scripts/setup-github-project.mjs",
     "setup-github:dry-run": "node scripts/setup-github-project.mjs --dry-run"
   }

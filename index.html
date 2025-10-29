@@ -39,9 +39,19 @@
 
     <!-- Fonts -->
     <link rel="stylesheet" href="https://use.typekit.net/kab8mjd.css" />
+    
+    <!-- Plausible Analytics -->
+    <script defer data-domain="kindlyroe.com" src="https://plausible.io/js/script.js"></script>
   </head>
 
   <body>
+    <!-- Hidden form template for Netlify Forms -->
+    <form name="interest" method="POST" data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <input type="text" name="name" />
+      <input type="email" name="email" />
+      <textarea name="message"></textarea>
+    </form>
+    
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
