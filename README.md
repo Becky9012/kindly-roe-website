@@ -37,7 +37,7 @@ This is a **static site**, so you can host the `build/` output almost anywhere.
 ### Option A — Netlify
 
 - Connect the repo, build command: `npm run build`
-- Publish directory: `build`
+- Publish directory: `dist`
 
 ### Option B — GitHub Pages
 
@@ -47,7 +47,7 @@ This is a **static site**, so you can host the `build/` output almost anywhere.
 
 ### Option C — Any static host
 
-- Upload the contents of `build/` to your provider or object storage (e.g. S3 + CloudFront)
+- Upload the contents of `dist/` to your provider or object storage (e.g. S3 + CloudFront)
 
 ## Scripts
 
@@ -56,9 +56,18 @@ This is a **static site**, so you can host the `build/` output almost anywhere.
   "dev": "vite",
   "build": "vite build",
   "preview": "vite preview",
-  "lint": "eslint . --ext .ts,.tsx"
+  "lint": "eslint . --ext .ts,.tsx",
+  "lint:fix": "eslint . --ext .ts,.tsx --fix",
+  "format": "prettier . -w",
+  "format:check": "prettier . -c"
 }
 ```
+
+## CI/CD
+
+- **GitHub Actions**: Every push to `main` runs linting and builds the project
+- **Netlify**: Auto-deploys from `main` branch, publishes from `dist/` directory
+- **SPA Routing**: Configured with `_redirects` to prevent 404s on page refresh
 
 ## Accessibility & performance
 
