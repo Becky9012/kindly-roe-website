@@ -1,3 +1,5 @@
+// src/components/InterestForm.tsx
+
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore'
 import { useState } from 'react'
 
@@ -7,95 +9,84 @@ export default function InterestForm() {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [message, setMessage] = useState('')
-  const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle')
-  const [errorMsg, setErrorMsg] = useState('')
+  const [submitting, setSubmitting] = useState(false)
+  const [ok, setOk] = useState<string | null>(null)
+  const [err, setErr] = useState<string | null>(null)
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    setStatus('sending')
-    setErrorMsg('')
+
+    setOk(null)
+    setErr(null)
+
+    // Basic guard rails
+    if (!name.trim() || !email.trim()) {
+      setErr('Please add your name and email.')
+      return
+    }
+
+    setSubmitting(true)
 
     try {
-      // write straight to Firestore
       await addDoc(collection(db, 'interest'), {
         name: name.trim(),
-        email: email.trim(),
+        email: email.trim().toLowerCase(),
         message: message.trim(),
-        timestamp: serverTimestamp(), // required by your rules
+        timestamp: serverTimestamp(),
       })
 
-      setStatus('success')
+      setOk('Thank you for joining our early circle. We\'ll be in touch.')
       setName('')
       setEmail('')
       setMessage('')
-    } catch (err: unknown) {
-      console.error(err)
-      setStatus('error')
-      setErrorMsg(err instanceof Error ? err.message : 'Something went wrong')
+    } catch (e) {
+      console.error(e)
+      setErr('Sorry, that didn\'t go through. Please try again.')
+    } finally {
+      setSubmitting(false)
     }
   }
 
   return (
-    <form onSubmit={handleSubmit} className="mx-auto max-w-xl space-y-3">
-      <div>
-        <label htmlFor="name" className="mb-1 block text-center">
-          Name
-        </label>
-        <input
-          id="name"
-          type="text"
-          required
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          className="w-full rounded-md border px-3 py-2"
-        />
-      </div>
+    <form onSubmit={handleSubmit} className="mx-auto max-w-md space-y-3">
+      <label htmlFor="name" className="block text-center text-sm">Name</label>
+      <input
+        id="name"
+        className="w-full rounded border px-3 py-2"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+        required
+      />
 
-      <div>
-        <label htmlFor="email" className="mb-1 block text-center">
-          Email
-        </label>
-        <input
-          id="email"
-          type="email"
-          required
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="w-full rounded-md border px-3 py-2"
-        />
-      </div>
+      <label htmlFor="email" className="block text-center text-sm">Email</label>
+      <input
+        id="email"
+        className="w-full rounded border px-3 py-2"
+        type="email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        required
+      />
 
-      <div>
-        <label htmlFor="message" className="mb-1 block text-center">
-          Message
-        </label>
-        <textarea
-          id="message"
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          rows={4}
-          className="w-full rounded-md border px-3 py-2"
-        />
-      </div>
+      <label htmlFor="message" className="block text-center text-sm">Message (optional)</label>
+      <textarea
+        id="message"
+        className="w-full rounded border px-3 py-2"
+        value={message}
+        onChange={(e) => setMessage(e.target.value)}
+        rows={3}
+      />
 
-      <div className="flex items-center justify-center">
-        <button
-          type="submit"
-          disabled={status === 'sending'}
-          className="rounded-full border px-5 py-2 shadow-sm disabled:opacity-50"
-        >
-          {status === 'sending' ? 'Sending…' : 'Send'}
-        </button>
-      </div>
+      <button
+        type="submit"
+        disabled={submitting}
+        className="w-full rounded bg-neutral-800 px-4 py-2 text-white disabled:opacity-50"
+      >
+        {submitting ? 'Sending…' : 'Send'}
+      </button>
 
-      {status === 'success' && (
-        <p className="text-center text-green-700">
-          Thank you for joining our early circle. We'll be in touch.
-        </p>
-      )}
-      {status === 'error' && (
-        <p className="text-center text-red-700">Sorry, that didn't work. {errorMsg}</p>
-      )}
+      {ok && <p className="text-center text-green-600">{ok}</p>}
+      {err && <p className="text-center text-red-600">{err}</p>}
     </form>
   )
 }
