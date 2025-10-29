@@ -43,9 +43,7 @@ export default function InterestForm() {
   }
 
   return (
-    <div style={{ border: '2px solid red', padding: '20px', margin: '20px' }}>
-      <h3 style={{ color: 'red', marginBottom: '10px' }}>DEBUG: InterestForm is rendering</h3>
-      <form onSubmit={handleSubmit} className="mx-auto max-w-xl px-4 pb-16">
+    <form onSubmit={handleSubmit} className="mx-auto max-w-xl px-4 pb-16">
         <div className="space-y-3">
           <label htmlFor="name" className="block text-center text-sm">
             Name
@@ -88,18 +86,19 @@ export default function InterestForm() {
              style={{
                width: '100%',
                padding: '12px 16px',
-               backgroundColor: 'red',
-               color: 'white',
+               backgroundColor: submitting || !name.trim() || !email.trim() ? '#d1d5db' : '#6c856f',
+               color: submitting || !name.trim() || !email.trim() ? '#374151' : 'white',
                border: 'none',
                borderRadius: '6px',
                fontSize: '16px',
                fontWeight: '500',
-               cursor: 'pointer',
+               cursor: submitting || !name.trim() || !email.trim() ? 'not-allowed' : 'pointer',
                display: 'block',
                visibility: 'visible',
                opacity: 1,
                position: 'relative',
-               zIndex: 999,
+               zIndex: 10,
+               transition: 'background-color 0.2s ease',
              }}
              disabled={submitting || !name.trim() || !email.trim()}
            >
@@ -115,7 +114,6 @@ export default function InterestForm() {
         {err && (
           <p className="text-sm text-red-700">Sorry, something went wrong. Please try again.</p>
         )}
-      </form>
-    </div>
+    </form>
   )
 }
