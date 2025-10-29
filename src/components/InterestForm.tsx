@@ -43,7 +43,9 @@ export default function InterestForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="mx-auto max-w-xl px-4 pb-16">
+    <div style={{ border: '2px solid red', padding: '20px', margin: '20px' }}>
+      <h3 style={{ color: 'red', marginBottom: '10px' }}>DEBUG: InterestForm is rendering</h3>
+      <form onSubmit={handleSubmit} className="mx-auto max-w-xl px-4 pb-16">
       <div className="space-y-3">
         <label htmlFor="name" className="block text-center text-sm">
           Name
@@ -82,11 +84,15 @@ export default function InterestForm() {
 
       <button
         type="submit"
-        className="mt-4 w-full rounded-md px-4 py-3 text-base font-medium transition
-                   bg-[#6c856f] text-white shadow-sm hover:bg-[#5b715e]
-                   disabled:bg-gray-300 disabled:text-gray-700 disabled:shadow-none
-                   focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#6c856f]"
+        className="mt-4 w-full rounded-md bg-red-500 px-4 py-3 text-base font-medium text-white shadow-sm transition hover:bg-red-600 focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:outline-none disabled:bg-gray-300 disabled:text-gray-700 disabled:shadow-none"
         disabled={submitting || !name.trim() || !email.trim()}
+        style={{ 
+          display: 'block', 
+          visibility: 'visible', 
+          opacity: 1,
+          position: 'relative',
+          zIndex: 10
+        }}
       >
         {submitting ? 'Sending…' : 'Send'}
       </button>
@@ -100,5 +106,6 @@ export default function InterestForm() {
         <p className="text-sm text-red-700">Sorry, something went wrong. Please try again.</p>
       )}
     </form>
+    </div>
   )
 }
