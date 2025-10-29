@@ -4678,3 +4678,24 @@ body {
   box-shadow: var(--shadow-xl) !important;
   transform: translateY(-2px) !important;
 }
+
+/* --- Kindly Roe Hero Gradient --- */
+.hero-gradient {
+  /* base paper so edges never look muddy */
+  background:
+    radial-gradient(70% 60% at 20% 35%, #C97B47 0%, #E9C29E 28%, transparent 60%),
+    radial-gradient(65% 55% at 80% 40%, #1C7A77 0%, #9BC8C6 32%, transparent 62%),
+    linear-gradient(#F7F2EA, #F7F2EA);
+  position: relative;
+}
+
+.hero-gradient::after {
+  /* soft vignette to echo the mockups */
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.06);
+  -webkit-mask-image: radial-gradient(120% 120% at 50% 40%, #000 55%, transparent 100%);
+          mask-image: radial-gradient(120% 120% at 50% 40%, #000 55%, transparent 100%);
+  pointer-events: none;
+}
