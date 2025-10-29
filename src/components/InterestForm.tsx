@@ -43,55 +43,62 @@ export default function InterestForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-xl mx-auto space-y-3">
-      <label htmlFor="name" className="block text-center text-sm">
-        Name
-      </label>
-      <input
-        id="name"
-        className="w-full rounded border px-3 py-2"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        required
-      />
+    <form onSubmit={handleSubmit} className="mx-auto max-w-xl px-4 pb-16">
+      <div className="space-y-3">
+        <label htmlFor="name" className="block text-center text-sm">
+          Name
+        </label>
+        <input
+          id="name"
+          className="w-full rounded border px-3 py-2"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          required
+        />
 
-      <label htmlFor="email" className="block text-center text-sm">
-        Email
-      </label>
-      <input
-        id="email"
-        className="w-full rounded border px-3 py-2"
-        type="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        required
-      />
+        <label htmlFor="email" className="block text-center text-sm">
+          Email
+        </label>
+        <input
+          id="email"
+          className="w-full rounded border px-3 py-2"
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
 
-      <label htmlFor="message" className="block text-center text-sm">
-        Message (optional)
-      </label>
-      <textarea
-        id="message"
-        className="w-full rounded border px-3 py-2"
-        value={message}
-        onChange={(e) => setMessage(e.target.value)}
-        rows={3}
-      />
+        <label htmlFor="message" className="block text-center text-sm">
+          Message (optional)
+        </label>
+        <textarea
+          id="message"
+          className="w-full rounded border px-3 py-2"
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+          rows={3}
+        />
+      </div>
 
       <button
         type="submit"
+        className="mt-4 w-full rounded-md px-4 py-3 text-base font-medium transition
+                   bg-[#6c856f] text-white shadow-sm hover:bg-[#5b715e]
+                   disabled:bg-gray-300 disabled:text-gray-700 disabled:shadow-none
+                   focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#6c856f]"
         disabled={submitting || !name.trim() || !email.trim()}
-        className={`w-full rounded-lg px-4 py-3 text-white font-medium transition
-          ${submitting || !name.trim() || !email.trim()
-            ? 'bg-gray-400 cursor-not-allowed'
-            : 'bg-[#6c856f] hover:bg-[#5b715e] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#6c856f]'}
-        `}
       >
         {submitting ? 'Sending…' : 'Send'}
       </button>
 
-      {ok && <p className="text-green-700 text-sm">Thank you for joining our early circle. We'll be in touch.</p>}
-      {err && <p className="text-red-700 text-sm">Sorry, something went wrong. Please try again.</p>}
+      {ok && (
+        <p className="text-sm text-green-700">
+          Thank you for joining our early circle. We'll be in touch.
+        </p>
+      )}
+      {err && (
+        <p className="text-sm text-red-700">Sorry, something went wrong. Please try again.</p>
+      )}
     </form>
   )
 }
