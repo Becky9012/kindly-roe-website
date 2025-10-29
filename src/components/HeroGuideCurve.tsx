@@ -1,36 +1,31 @@
-import React from "react";
+import React from 'react'
 
 type Props = {
-  className?: string;
-  strokeWidth?: number;
-  dash?: [number, number];
-  copper?: string;
-  cream?: string;
-  pathD?: string;
-  showShadow?: boolean;
-  viewBox?: string; // NEW: allow custom viewBox
-};
+  className?: string
+  strokeWidth?: number
+  dash?: [number, number]
+  copper?: string
+  cream?: string
+  pathD?: string
+  showShadow?: boolean
+  viewBox?: string // NEW: allow custom viewBox
+}
 
 export default function HeroGuideCurve({
   className,
   strokeWidth = 3.8,
   dash = [14, 12],
-  copper = "#B7784A",
-  cream = "#EFE7E0",
-  pathD = "M600.12,309.6c68.24,1.42,127.33,45.97,178.14,91.54,24.67,22.12,50.21,45.82,82.41,53.62",
+  copper = '#B7784A',
+  cream = '#EFE7E0',
+  pathD = 'M600.12,309.6c68.24,1.42,127.33,45.97,178.14,91.54,24.67,22.12,50.21,45.82,82.41,53.62',
   showShadow = true,
-  viewBox = "560 300 340 170", // NEW: default (can be replaced with your bbox)
+  viewBox = '560 300 340 170', // NEW: default (can be replaced with your bbox)
 }: Props) {
-  const [dashLen, gapLen] = dash;
-  const offset = (dashLen + gapLen) * 0.5;
+  const [dashLen, gapLen] = dash
+  const offset = (dashLen + gapLen) * 0.5
 
   return (
-    <svg
-      className={className}
-      viewBox={viewBox}
-      aria-hidden="true"
-      focusable="false"
-    >
+    <svg className={className} viewBox={viewBox} aria-hidden="true" focusable="false">
       <defs>
         <path id="roe-curve" d={pathD} />
       </defs>
@@ -70,5 +65,5 @@ export default function HeroGuideCurve({
         strokeDashoffset={offset}
       />
     </svg>
-  );
+  )
 }

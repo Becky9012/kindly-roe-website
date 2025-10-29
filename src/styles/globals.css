@@ -7,43 +7,43 @@
   --font-serif: 'minion-pro', serif;
   --font-roe: 'above-the-beyond', sans-serif;
   --letter-spacing-roe: -0.046em; /* -46 tracking */
-  
+
   /* 🌿 Kindly Roe Core Palette — without Sage */
-  
+
   /* Neutrals */
-  --cream: #F7F4F1;
-  --ink: #1F1D1A;
-  --soft-taupe: #DAD0C7;
-  --warm-stone: #B9AFA5;
-  
+  --cream: #f7f4f1;
+  --ink: #1f1d1a;
+  --soft-taupe: #dad0c7;
+  --warm-stone: #b9afa5;
+
   /* Metals */
-  --gold: #D4AF37;
-  --soft-gold: #E7C873;
-  --copper: #B87333;
-  --rose-copper: #C97A47;
-  --silver: #C0C0C0;
-  --soft-silver: #D9D9D9;
-  
+  --gold: #d4af37;
+  --soft-gold: #e7c873;
+  --copper: #b87333;
+  --rose-copper: #c97a47;
+  --silver: #c0c0c0;
+  --soft-silver: #d9d9d9;
+
   /* Accent Tones */
-  --blush: #EBC8B2;
-  --dust-rose: #D9A58B;
-  --warm-nude: #E5BCA1;
-  --charcoal: #3B3835;
-  --ink-blue: #2E3440;
-  
+  --blush: #ebc8b2;
+  --dust-rose: #d9a58b;
+  --warm-nude: #e5bca1;
+  --charcoal: #3b3835;
+  --ink-blue: #2e3440;
+
   /* Dark Mode Adjustments */
   --dark-bg: #121110;
-  --dark-gold: #C9A43B;
-  --dark-copper: #A75B2E;
-  --dark-silver: #9FA3A6;
-  --dark-cream: #EDE8E3;
-  
+  --dark-gold: #c9a43b;
+  --dark-copper: #a75b2e;
+  --dark-silver: #9fa3a6;
+  --dark-cream: #ede8e3;
+
   /* Semantic mappings for easier use */
   --warm-cream: var(--cream);
   --gentle-background: var(--soft-taupe);
-  --paper: #FFFEFA;
-  --soft-error: #C6837D;
-  
+  --paper: #fffefa;
+  --soft-error: #c6837d;
+
   --background: var(--soft-taupe);
   --foreground: var(--ink);
   --card: var(--paper);
@@ -170,7 +170,7 @@
     @apply bg-background text-foreground;
     font-family: var(--font-serif);
   }
-  
+
   /* Subtle texture overlay for natural feel */
   body::before {
     content: '';
@@ -184,7 +184,7 @@
     z-index: 9999;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
   }
-  
+
   /* H1 uses the hand-drawn script font for hero moments */
   h1 {
     font-family: var(--font-roe);
@@ -192,22 +192,34 @@
     font-weight: 400;
     font-style: normal;
   }
-  
+
   /* H2-H6 use Minion Pro for clarity and elegance */
-  h2, h3, h4, h5, h6 {
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     font-family: var(--font-serif);
   }
-  
+
   /* All paragraphs and body text use Minion Pro */
   p {
     font-family: var(--font-serif);
   }
-  
+
   /* UI controls use Inter for clarity */
-  button, input, select, textarea {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  button,
+  input,
+  select,
+  textarea {
+    font-family:
+      'Inter',
+      -apple-system,
+      BlinkMacSystemFont,
+      'Segoe UI',
+      sans-serif;
   }
-  
+
   /* Utility class for manual Roe font application */
   .font-roe {
     font-family: var(--font-roe);
@@ -215,7 +227,7 @@
     font-weight: 400;
     font-style: normal;
   }
-  
+
   /* Utility class for manual Minion Pro application */
   .font-serif {
     font-family: var(--font-serif);
@@ -226,7 +238,7 @@
  * Base typography. This is not applied to elements which have an ancestor with a Tailwind text class.
  */
 @layer base {
-  :where(:not(:has([class*=" text-"]), :not(:has([class^="text-"])))) {
+  :where(:not(:has([class*=' text-']), :not(:has([class^='text-'])))) {
     /* H1 uses script font - sized generously for impact and legibility */
     h1 {
       font-size: var(--text-5xl);

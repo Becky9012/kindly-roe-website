@@ -1,34 +1,35 @@
-import { Card } from "./ui/card";
-import { Check } from "lucide-react";
+import { Check } from 'lucide-react'
+
+import { Card } from './ui/card'
 
 interface UIExampleCardProps {
-  type: "button" | "confirmation" | "prompt";
-  text: string;
-  subtext?: string;
+  type: 'button' | 'confirmation' | 'prompt'
+  text: string
+  subtext?: string
 }
 
 export function UIExampleCard({ type, text, subtext }: UIExampleCardProps) {
-  if (type === "button") {
+  if (type === 'button') {
     return (
-      <button className="px-4 py-2 bg-[#C8B6E2] text-[#2D2D2D] border-2 border-[#2D2D2D] rounded-lg shadow-[3px_3px_0px_0px_rgba(45,45,45,1)] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[2px_2px_0px_0px_rgba(45,45,45,1)] transition-all text-sm">
+      <button className="rounded-lg border-2 border-[#2D2D2D] bg-[#C8B6E2] px-4 py-2 text-sm text-[#2D2D2D] shadow-[3px_3px_0px_0px_rgba(45,45,45,1)] transition-all hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[2px_2px_0px_0px_rgba(45,45,45,1)]">
         {text}
       </button>
-    );
+    )
   }
 
-  if (type === "confirmation") {
+  if (type === 'confirmation') {
     return (
-      <div className="inline-flex items-center gap-2 px-3 py-2 bg-[#A8D5BA] border-2 border-[#2D2D2D] rounded-lg text-sm text-[#2D2D2D]">
-        <Check className="w-4 h-4" />
+      <div className="inline-flex items-center gap-2 rounded-lg border-2 border-[#2D2D2D] bg-[#A8D5BA] px-3 py-2 text-sm text-[#2D2D2D]">
+        <Check className="h-4 w-4" />
         <span>{text}</span>
       </div>
-    );
+    )
   }
 
   return (
-    <Card className="p-4 border-2 border-[#2D2D2D] bg-white">
-      <p className="text-sm text-[#5D5D5D] mb-1">{text}</p>
+    <Card className="border-2 border-[#2D2D2D] bg-white p-4">
+      <p className="mb-1 text-sm text-[#5D5D5D]">{text}</p>
       {subtext && <p className="text-xs text-[#5D5D5D]/60">{subtext}</p>}
     </Card>
-  );
+  )
 }

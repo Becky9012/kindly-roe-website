@@ -48,6 +48,7 @@
     "vaul": "^1.1.2"
   },
   "devDependencies": {
+    "@eslint/js": "^9.38.0",
     "@octokit/auth-app": "^8.1.1",
     "@octokit/auth-token": "^6.0.0",
     "@octokit/rest": "^22.0.0",
@@ -57,14 +58,28 @@
     "@types/react-dom": "^19.2.2",
     "@vitejs/plugin-react-swc": "^3.10.2",
     "autoprefixer": "^10.4.21",
+    "eslint": "^9.38.0",
+    "eslint-plugin-import": "^2.32.0",
+    "eslint-plugin-jsx-a11y": "^6.10.2",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "eslint-plugin-simple-import-sort": "^12.1.1",
     "postcss": "^8.5.6",
+    "prettier": "^3.6.2",
+    "prettier-plugin-tailwindcss": "^0.7.1",
     "tailwindcss": "^4.1.14",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.46.2",
     "vite": "^6.4.0"
   },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
+    "lint": "eslint . --ext .ts,.tsx",
+    "lint:fix": "eslint . --ext .ts,.tsx --fix",
+    "format": "prettier . -w",
+    "format:check": "prettier . -c",
     "setup-github": "node scripts/setup-github-project.mjs",
     "setup-github:dry-run": "node scripts/setup-github-project.mjs --dry-run"
   }

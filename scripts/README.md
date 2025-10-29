@@ -5,6 +5,7 @@ This directory contains scripts to help set up and manage the Kindly Roe GitHub 
 ## Setup GitHub Project
 
 The `setup-github-project.mjs` script automates the creation of:
+
 - GitHub issues for project tasks
 - Project board with columns
 - Issue and PR templates
@@ -28,18 +29,21 @@ The `setup-github-project.mjs` script automates the creation of:
 ### Usage
 
 #### Dry Run (Recommended First)
+
 ```bash
 # Test what the script will do without making changes
 GITHUB_TOKEN=your_token_here npm run setup-github:dry-run Becky9012/kindly-roe-website
 ```
 
 #### Run the Setup
+
 ```bash
 # Actually create the issues, project, and templates
 GITHUB_TOKEN=your_token_here npm run setup-github Becky9012/kindly-roe-website
 ```
 
 #### Alternative Direct Usage
+
 ```bash
 # Dry run
 node scripts/setup-github-project.mjs Becky9012/kindly-roe-website --dry-run
@@ -51,7 +55,9 @@ GITHUB_TOKEN=your_token_here node scripts/setup-github-project.mjs Becky9012/kin
 ### What Gets Created
 
 #### Issues
+
 The script creates 8 pre-defined issues covering:
+
 - 🎨 Design System Documentation
 - 🧪 Add Testing Framework
 - 📊 Add Analytics and Monitoring
@@ -62,11 +68,14 @@ The script creates 8 pre-defined issues covering:
 - 🔒 Security Audit and Hardening
 
 #### Project Board
+
 - Creates a project board with columns: To Do, In Progress, In Review, Done
 - Links to the repository for easy management
 
 #### Labels
+
 Creates a comprehensive set of labels:
+
 - `bug`, `enhancement`, `documentation`
 - `design-system`, `testing`, `accessibility`
 - `mobile`, `responsive`, `performance`
@@ -74,22 +83,26 @@ Creates a comprehensive set of labels:
 - `good first issue`, `help wanted`
 
 #### Templates
+
 - Bug report template
 - Pull request template
 
 ### Troubleshooting
 
 #### "Repository not found"
+
 - Make sure the repository `Becky9012/kindly-roe-website` exists
 - Verify you have access to the repository
 - Check the repository name format: `owner/repo`
 
 #### "GITHUB_TOKEN environment variable is required"
+
 - Make sure you've set the `GITHUB_TOKEN` environment variable
 - Verify the token has the required scopes
 - Check that the token is valid and not expired
 
 #### "Failed to create issue"
+
 - Check your token permissions
 - Verify the repository exists and you have write access
 - Some issues might already exist (this is normal)
@@ -104,6 +117,7 @@ Creates a comprehensive set of labels:
 ### Customization
 
 You can modify the script to:
+
 - Add more issues
 - Change the project structure
 - Modify labels and colors

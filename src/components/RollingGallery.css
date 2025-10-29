@@ -15,12 +15,12 @@
 
 .gallery-gradient-left {
   left: 0;
-  background: linear-gradient(to left, rgba(0, 0, 0, 0) 0%, #FFFEFA 100%);
+  background: linear-gradient(to left, rgba(0, 0, 0, 0) 0%, #fffefa 100%);
 }
 
 .gallery-gradient-right {
   right: 0;
-  background: linear-gradient(to right, rgba(0, 0, 0, 0) 0%, #FFFEFA 100%);
+  background: linear-gradient(to right, rgba(0, 0, 0, 0) 0%, #fffefa 100%);
 }
 
 .gallery-content {
@@ -60,10 +60,10 @@
   height: 160px;
   width: 500px;
   border-radius: 15px;
-  border: 2px solid rgba(31,29,26,0.2);
+  border: 2px solid rgba(31, 29, 26, 0.2);
   object-fit: cover;
   transition: 0.3s ease;
-  box-shadow: 2px 2px 0px 0px rgba(31,29,26,0.1);
+  box-shadow: 2px 2px 0px 0px rgba(31, 29, 26, 0.1);
 }
 
 .gallery-item:hover .gallery-img {

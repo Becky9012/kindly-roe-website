@@ -1,64 +1,62 @@
 #!/usr/bin/env node
 
-import { Octokit } from '@octokit/rest';
-import { createAppAuth } from '@octokit/auth-app';
-import { createTokenAuth } from '@octokit/auth-token';
+import { Octokit } from '@octokit/rest'
 
-const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
+const GITHUB_TOKEN = process.env.GITHUB_TOKEN
 
 if (!GITHUB_TOKEN) {
-  console.error('❌ GITHUB_TOKEN environment variable is required');
-  console.error('   Get your token from: https://github.com/settings/tokens');
-  console.error('   Required scopes: repo, project, issues, pull_requests');
-  process.exit(1);
+  console.error('❌ GITHUB_TOKEN environment variable is required')
+  console.error('   Get your token from: https://github.com/settings/tokens')
+  console.error('   Required scopes: repo, project, issues, pull_requests')
+  process.exit(1)
 }
 
-const [,, repo, ...flags] = process.argv;
-const isDryRun = flags.includes('--dry-run');
+const [, , repo, ...flags] = process.argv
+const isDryRun = flags.includes('--dry-run')
 
 if (!repo) {
-  console.error('❌ Repository name is required');
-  console.error('   Usage: node setup-github-project.mjs <owner/repo> [--dry-run]');
-  process.exit(1);
+  console.error('❌ Repository name is required')
+  console.error('   Usage: node setup-github-project.mjs <owner/repo> [--dry-run]')
+  process.exit(1)
 }
 
-const [owner, repoName] = repo.split('/');
+const [owner, repoName] = repo.split('/')
 if (!owner || !repoName) {
-  console.error('❌ Invalid repository format. Use: owner/repo');
-  process.exit(1);
+  console.error('❌ Invalid repository format. Use: owner/repo')
+  process.exit(1)
 }
 
 const octokit = new Octokit({
   auth: GITHUB_TOKEN,
-});
+})
 
-console.log(`🚀 Setting up GitHub project for ${repo}`);
+console.log(`🚀 Setting up GitHub project for ${repo}`)
 if (isDryRun) {
-  console.log('🔍 DRY RUN MODE - No changes will be made');
+  console.log('🔍 DRY RUN MODE - No changes will be made')
 }
-console.log('');
+console.log('')
 
 async function setupRepository() {
   try {
     // Check if repository exists
-    const { data: repoData } = await octokit.repos.get({ owner, repo: repoName });
-    console.log(`✅ Repository found: ${repoData.full_name}`);
-    console.log(`   Description: ${repoData.description || 'No description'}`);
-    console.log(`   Visibility: ${repoData.private ? 'Private' : 'Public'}`);
-    console.log('');
+    const { data: repoData } = await octokit.repos.get({ owner, repo: repoName })
+    console.log(`✅ Repository found: ${repoData.full_name}`)
+    console.log(`   Description: ${repoData.description || 'No description'}`)
+    console.log(`   Visibility: ${repoData.private ? 'Private' : 'Public'}`)
+    console.log('')
   } catch (error) {
     if (error.status === 404) {
-      console.error(`❌ Repository ${repo} not found`);
-      console.error('   Make sure the repository exists and you have access to it');
-      process.exit(1);
+      console.error(`❌ Repository ${repo} not found`)
+      console.error('   Make sure the repository exists and you have access to it')
+      process.exit(1)
     }
-    throw error;
+    throw error
   }
 }
 
 async function setupIssues() {
-  console.log('📝 Setting up issues...');
-  
+  console.log('📝 Setting up issues...')
+
   const issues = [
     {
       title: '🎨 Design System Documentation',
@@ -77,7 +75,7 @@ Create comprehensive documentation for the Kindly Roe design system.
 - [ ] Component examples are provided
 - [ ] Guidelines are clear and actionable
 - [ ] Documentation is accessible to developers`,
-      labels: ['documentation', 'design-system', 'enhancement']
+      labels: ['documentation', 'design-system', 'enhancement'],
     },
     {
       title: '🧪 Add Testing Framework',
@@ -96,7 +94,7 @@ Implement a comprehensive testing framework for the Kindly Roe website.
 - [ ] All critical user flows are tested
 - [ ] Tests run in CI/CD pipeline
 - [ ] Accessibility tests are included`,
-      labels: ['testing', 'quality', 'enhancement']
+      labels: ['testing', 'quality', 'enhancement'],
     },
     {
       title: '📊 Add Analytics and Monitoring',
@@ -115,7 +113,7 @@ Implement analytics and monitoring to track website performance and user engagem
 - [ ] Performance metrics are tracked
 - [ ] Error tracking is functional
 - [ ] Dashboard is accessible to team`,
-      labels: ['analytics', 'monitoring', 'enhancement']
+      labels: ['analytics', 'monitoring', 'enhancement'],
     },
     {
       title: '🔧 Content Management System',
@@ -134,7 +132,7 @@ Implement a CMS to make content updates easier for non-technical team members.
 - [ ] CMS is user-friendly
 - [ ] Content is versioned
 - [ ] Team is trained on usage`,
-      labels: ['cms', 'content', 'enhancement']
+      labels: ['cms', 'content', 'enhancement'],
     },
     {
       title: '🚀 Production Deployment Setup',
@@ -153,7 +151,7 @@ Set up production deployment pipeline and hosting infrastructure.
 - [ ] Custom domain is configured
 - [ ] SSL is properly set up
 - [ ] Environment is production-ready`,
-      labels: ['deployment', 'infrastructure', 'priority']
+      labels: ['deployment', 'infrastructure', 'priority'],
     },
     {
       title: '♿ Accessibility Audit and Improvements',
@@ -172,7 +170,7 @@ Conduct comprehensive accessibility audit and implement improvements.
 - [ ] Screen reader compatibility
 - [ ] Keyboard navigation works
 - [ ] Color contrast meets standards`,
-      labels: ['accessibility', 'a11y', 'priority']
+      labels: ['accessibility', 'a11y', 'priority'],
     },
     {
       title: '📱 Mobile Optimization',
@@ -191,7 +189,7 @@ Optimize the website for mobile devices and improve mobile user experience.
 - [ ] Touch interactions are smooth
 - [ ] Mobile performance is optimized
 - [ ] Navigation is mobile-friendly`,
-      labels: ['mobile', 'responsive', 'optimization']
+      labels: ['mobile', 'responsive', 'optimization'],
     },
     {
       title: '🔒 Security Audit and Hardening',
@@ -210,14 +208,14 @@ Conduct security audit and implement security best practices.
 - [ ] Security headers are configured
 - [ ] Dependencies are up to date
 - [ ] Security best practices are followed`,
-      labels: ['security', 'audit', 'priority']
-    }
-  ];
+      labels: ['security', 'audit', 'priority'],
+    },
+  ]
 
   for (const issue of issues) {
     if (isDryRun) {
-      console.log(`  🔍 Would create issue: "${issue.title}"`);
-      console.log(`     Labels: ${issue.labels.join(', ')}`);
+      console.log(`  🔍 Would create issue: "${issue.title}"`)
+      console.log(`     Labels: ${issue.labels.join(', ')}`)
     } else {
       try {
         const { data } = await octokit.issues.create({
@@ -225,62 +223,66 @@ Conduct security audit and implement security best practices.
           repo: repoName,
           title: issue.title,
           body: issue.body,
-          labels: issue.labels
-        });
-        console.log(`  ✅ Created issue: "${issue.title}" (#${data.number})`);
+          labels: issue.labels,
+        })
+        console.log(`  ✅ Created issue: "${issue.title}" (#${data.number})`)
       } catch (error) {
-        console.error(`  ❌ Failed to create issue: "${issue.title}"`);
-        console.error(`     Error: ${error.message}`);
+        console.error(`  ❌ Failed to create issue: "${issue.title}"`)
+        console.error(`     Error: ${error.message}`)
       }
     }
   }
-  console.log('');
+  console.log('')
 }
 
 async function setupProject() {
-  console.log('📋 Setting up GitHub project...');
-  
+  console.log('📋 Setting up GitHub project...')
+
   const projectData = {
     name: 'Kindly Roe Website Development',
     body: 'Project management for the Kindly Roe website development and maintenance.',
-    state: 'open'
-  };
+    state: 'open',
+  }
 
   if (isDryRun) {
-    console.log(`  🔍 Would create project: "${projectData.name}"`);
+    console.log(`  🔍 Would create project: "${projectData.name}"`)
   } else {
     try {
       const { data: project } = await octokit.projects.createForRepo({
         owner,
         repo: repoName,
         name: projectData.name,
-        body: projectData.body
-      });
-      console.log(`  ✅ Created project: "${projectData.name}" (ID: ${project.id})`);
-      
+        body: projectData.body,
+      })
+      console.log(`  ✅ Created project: "${projectData.name}" (ID: ${project.id})`)
+
       // Add project columns
-      const columns = ['To Do', 'In Progress', 'In Review', 'Done'];
+      const columns = ['To Do', 'In Progress', 'In Review', 'Done']
       for (const columnName of columns) {
-        const { data: column } = await octokit.projects.createColumn({
+        await octokit.projects.createColumn({
           project_id: project.id,
-          name: columnName
-        });
-        console.log(`    ✅ Added column: "${columnName}"`);
+          name: columnName,
+        })
+        console.log(`    ✅ Added column: "${columnName}"`)
       }
     } catch (error) {
-      console.error(`  ❌ Failed to create project: ${error.message}`);
+      console.error(`  ❌ Failed to create project: ${error.message}`)
     }
   }
-  console.log('');
+  console.log('')
 }
 
 async function setupLabels() {
-  console.log('🏷️  Setting up labels...');
-  
+  console.log('🏷️  Setting up labels...')
+
   const labels = [
-    { name: 'bug', color: 'd73a4a', description: 'Something isn\'t working' },
+    { name: 'bug', color: 'd73a4a', description: "Something isn't working" },
     { name: 'enhancement', color: 'a2eeef', description: 'New feature or request' },
-    { name: 'documentation', color: '0075ca', description: 'Improvements or additions to documentation' },
+    {
+      name: 'documentation',
+      color: '0075ca',
+      description: 'Improvements or additions to documentation',
+    },
     { name: 'design-system', color: '7057ff', description: 'Design system related' },
     { name: 'testing', color: 'f9d0c4', description: 'Testing related' },
     { name: 'accessibility', color: '0e8a16', description: 'Accessibility improvements' },
@@ -292,12 +294,12 @@ async function setupLabels() {
     { name: 'deployment', color: '1d76db', description: 'Deployment related' },
     { name: 'priority', color: 'ff0000', description: 'High priority' },
     { name: 'good first issue', color: '7057ff', description: 'Good for newcomers' },
-    { name: 'help wanted', color: '008672', description: 'Extra attention is needed' }
-  ];
+    { name: 'help wanted', color: '008672', description: 'Extra attention is needed' },
+  ]
 
   for (const label of labels) {
     if (isDryRun) {
-      console.log(`  🔍 Would create label: "${label.name}" (${label.color})`);
+      console.log(`  🔍 Would create label: "${label.name}" (${label.color})`)
     } else {
       try {
         await octokit.issues.createLabel({
@@ -305,24 +307,24 @@ async function setupLabels() {
           repo: repoName,
           name: label.name,
           color: label.color,
-          description: label.description
-        });
-        console.log(`  ✅ Created label: "${label.name}"`);
+          description: label.description,
+        })
+        console.log(`  ✅ Created label: "${label.name}"`)
       } catch (error) {
         if (error.status === 422) {
-          console.log(`  ℹ️  Label "${label.name}" already exists`);
+          console.log(`  ℹ️  Label "${label.name}" already exists`)
         } else {
-          console.error(`  ❌ Failed to create label: "${label.name}"`);
+          console.error(`  ❌ Failed to create label: "${label.name}"`)
         }
       }
     }
   }
-  console.log('');
+  console.log('')
 }
 
 async function setupTemplates() {
-  console.log('📄 Setting up issue and PR templates...');
-  
+  console.log('📄 Setting up issue and PR templates...')
+
   const issueTemplate = `---
 name: Bug report
 about: Create a report to help us improve
@@ -360,7 +362,7 @@ If applicable, add screenshots to help explain your problem.
 
 **Additional context**
 Add any other context about the problem here.
-`;
+`
 
   const prTemplate = `## Description
 Brief description of the changes in this PR.
@@ -391,11 +393,11 @@ Add screenshots to help explain your changes.
 
 ## Additional Notes
 Any additional information that reviewers should know.
-`;
+`
 
   if (isDryRun) {
-    console.log('  🔍 Would create issue template');
-    console.log('  🔍 Would create PR template');
+    console.log('  🔍 Would create issue template')
+    console.log('  🔍 Would create PR template')
   } else {
     try {
       // Create .github directory structure
@@ -404,46 +406,45 @@ Any additional information that reviewers should know.
         repo: repoName,
         path: '.github/ISSUE_TEMPLATE/bug_report.md',
         message: 'Add bug report template',
-        content: Buffer.from(issueTemplate).toString('base64')
-      });
-      console.log('  ✅ Created issue template');
+        content: Buffer.from(issueTemplate).toString('base64'),
+      })
+      console.log('  ✅ Created issue template')
 
       await octokit.repos.createOrUpdateFileContents({
         owner,
         repo: repoName,
         path: '.github/pull_request_template.md',
         message: 'Add PR template',
-        content: Buffer.from(prTemplate).toString('base64')
-      });
-      console.log('  ✅ Created PR template');
+        content: Buffer.from(prTemplate).toString('base64'),
+      })
+      console.log('  ✅ Created PR template')
     } catch (error) {
-      console.error(`  ❌ Failed to create templates: ${error.message}`);
+      console.error(`  ❌ Failed to create templates: ${error.message}`)
     }
   }
-  console.log('');
+  console.log('')
 }
 
 async function main() {
   try {
-    await setupRepository();
-    await setupLabels();
-    await setupIssues();
-    await setupProject();
-    await setupTemplates();
-    
-    console.log('🎉 GitHub project setup complete!');
-    console.log('');
-    console.log('Next steps:');
-    console.log('1. Review the created issues and prioritize them');
-    console.log('2. Assign team members to issues');
-    console.log('3. Set up branch protection rules');
-    console.log('4. Configure CI/CD pipeline');
-    console.log('5. Set up project board automation');
-    
+    await setupRepository()
+    await setupLabels()
+    await setupIssues()
+    await setupProject()
+    await setupTemplates()
+
+    console.log('🎉 GitHub project setup complete!')
+    console.log('')
+    console.log('Next steps:')
+    console.log('1. Review the created issues and prioritize them')
+    console.log('2. Assign team members to issues')
+    console.log('3. Set up branch protection rules')
+    console.log('4. Configure CI/CD pipeline')
+    console.log('5. Set up project board automation')
   } catch (error) {
-    console.error('❌ Setup failed:', error.message);
-    process.exit(1);
+    console.error('❌ Setup failed:', error.message)
+    process.exit(1)
   }
 }
 
-main();
+main()

@@ -1,12 +1,12 @@
-import { ReactNode } from "react";
+import { ReactNode } from 'react'
 
 interface WobblyCardProps {
-  children: ReactNode;
-  className?: string;
-  borderColor?: string;
+  children: ReactNode
+  className?: string
+  borderColor?: string
 }
 
-export function WobblyCard({ children, className = "", borderColor = "#4A4A4A" }: WobblyCardProps) {
+export function WobblyCard({ children, className = '', borderColor = '#4A4A4A' }: WobblyCardProps) {
   // Create a wobbly SVG border path
   const wobblePath = `
     M 10,5 
@@ -19,13 +19,13 @@ export function WobblyCard({ children, className = "", borderColor = "#4A4A4A" }
     Q 8,92 10,85 
     L 10,15 
     Q 8,10 10,5
-  `;
+  `
 
   return (
     <div className={`relative ${className}`}>
       {/* Wobbly border as SVG */}
       <svg
-        className="absolute inset-0 w-full h-full pointer-events-none"
+        className="pointer-events-none absolute inset-0 h-full w-full"
         preserveAspectRatio="none"
         viewBox="0 0 100 100"
       >
@@ -37,11 +37,9 @@ export function WobblyCard({ children, className = "", borderColor = "#4A4A4A" }
           vectorEffect="non-scaling-stroke"
         />
       </svg>
-      
+
       {/* Content */}
-      <div className="relative p-6">
-        {children}
-      </div>
+      <div className="relative p-6">{children}</div>
     </div>
-  );
+  )
 }

@@ -50,4 +50,4 @@ This document lists the sources and credits for assets used in the Kindly Roe we
 
 ---
 
-*All custom illustrations and brand assets are original to Kindly Roe. External libraries are properly licensed for commercial use.*
+_All custom illustrations and brand assets are original to Kindly Roe. External libraries are properly licensed for commercial use._
