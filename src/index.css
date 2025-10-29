@@ -3335,7 +3335,7 @@ body {
   right: 20px !important;
   width: 30px !important;
   height: 30px !important;
-  background-image: url('/src/assets/HandDrawnCircle.svg') !important;
+  background-image: url('../assets/HandDrawnCircle.svg') !important;
   background-size: contain !important;
   background-repeat: no-repeat !important;
   opacity: 0.3 !important;
@@ -3349,7 +3349,7 @@ body {
   right: 15px !important;
   width: 30px !important;
   height: 30px !important;
-  background-image: url('/src/assets/HandDrawnCircle.svg') !important;
+  background-image: url('../assets/HandDrawnCircle.svg') !important;
   background-size: contain !important;
   background-repeat: no-repeat !important;
   opacity: 0.3 !important;

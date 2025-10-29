@@ -2,6 +2,10 @@ import { BookOpen, Calendar, Check, FileText, Heart, Lightbulb, MessageCircle } 
 import { motion } from 'motion/react'
 import { useEffect } from 'react'
 
+import familyCard from '@/assets/familycard.svg'
+import adultCard from '@/assets/girlcard1.svg'
+import kindlyRoeLogo from '@/assets/Kindlyroe.svg'
+
 import { BrandIllustration } from './components/BrandIllustration'
 import { ImageWithFallback } from './components/figma/ImageWithFallback'
 import { HandDrawnArrow } from './components/HandDrawnArrow'
@@ -50,7 +54,7 @@ export default function App() {
           <div className="navbar-thick mx-auto flex max-w-7xl items-center justify-between px-6">
             {/* Left side - Kindly Roe Logo */}
             <div className="flex items-center">
-              <img src="/src/assets/Kindlyroe.svg" alt="Kindly Roe" className="logo-white" />
+              <img src={kindlyRoeLogo} alt="Kindly Roe" className="logo-white" />
             </div>
 
             {/* Right side - could add menu items here later */}
@@ -86,7 +90,7 @@ export default function App() {
                 <div className="relative z-10 flex flex-col items-center text-center">
                   <div className="relative mb-6">
                     <img
-                      src="/src/assets/familycard.svg"
+                      src={familyCard}
                       alt="Family navigating support"
                       className="mx-auto mb-6 aspect-[3/4] w-full max-w-56 object-contain"
                     />
@@ -124,7 +128,7 @@ export default function App() {
                 <div className="relative z-10 flex flex-col items-center text-center">
                   <div className="relative mb-6">
                     <img
-                      src="/src/assets/girlcard1.svg"
+                      src={adultCard}
                       alt="Adult seeking clarity"
                       className="mx-auto mb-6 aspect-[3/4] w-full max-w-56 object-contain"
                     />
