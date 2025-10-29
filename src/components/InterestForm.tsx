@@ -36,9 +36,11 @@ export default function InterestForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-3 max-w-xl mx-auto">
+    <form onSubmit={handleSubmit} className="mx-auto max-w-xl space-y-3">
       <div>
-        <label htmlFor="name" className="block text-center mb-1">Name</label>
+        <label htmlFor="name" className="mb-1 block text-center">
+          Name
+        </label>
         <input
           id="name"
           type="text"
@@ -50,7 +52,9 @@ export default function InterestForm() {
       </div>
 
       <div>
-        <label htmlFor="email" className="block text-center mb-1">Email</label>
+        <label htmlFor="email" className="mb-1 block text-center">
+          Email
+        </label>
         <input
           id="email"
           type="email"
@@ -62,7 +66,9 @@ export default function InterestForm() {
       </div>
 
       <div>
-        <label htmlFor="message" className="block text-center mb-1">Message</label>
+        <label htmlFor="message" className="mb-1 block text-center">
+          Message
+        </label>
         <textarea
           id="message"
           value={message}
@@ -76,14 +82,16 @@ export default function InterestForm() {
         <button
           type="submit"
           disabled={status === 'sending'}
-          className="rounded-full px-5 py-2 border shadow-sm disabled:opacity-50"
+          className="rounded-full border px-5 py-2 shadow-sm disabled:opacity-50"
         >
           {status === 'sending' ? 'Sending…' : 'Send'}
         </button>
       </div>
 
       {status === 'success' && (
-        <p className="text-center text-green-700">Thank you for joining our early circle. We'll be in touch.</p>
+        <p className="text-center text-green-700">
+          Thank you for joining our early circle. We'll be in touch.
+        </p>
       )}
       {status === 'error' && (
         <p className="text-center text-red-700">Sorry, that didn't work. {errorMsg}</p>
