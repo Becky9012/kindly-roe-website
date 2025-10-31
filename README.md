@@ -40,87 +40,134 @@ npm run build
 npm run preview
 ```
 
+## CI/CD
+
+This repo deploys with **GitHub Actions** using **Google Workload Identity Federation**, so there are no JSON keys or Firebase tokens.
+
+- **Branch that deploys to production**: `main`
+- **Firebase project**: `kindlyroe-website`
+- **Service account**: `ci-deployer@kindlyroe-website.iam.gserviceaccount.com`
+- **Workflow file**: `.github/workflows/firebase-deploy.yml`
+
+The workflow:
+
+1. Checks out the repo
+2. Authenticates to Google Cloud using WIF
+3. Installs Node 20 and the Firebase CLI
+4. Builds the website
+5. Builds functions if present
+6. Deploys to Firebase Hosting and Cloud Functions
+
+Run it by pushing to `main` or using **Actions** → **Run workflow**.
+
 ## Deployment
 
-This is a **static site**, so you can host the `build/` output almost anywhere.
+### Automatic (recommended)
 
-### Option A — Netlify
+Pushing to `main` will deploy to:
 
-- Connect the repo, build command: `npm run build`
-- Publish directory: `dist`
+- **Hosting**: `kindlyroe-website`
+- **Functions**: Gen 2 in `europe-west2` (if present)
 
-### Option B — GitHub Pages
+You will see the run in GitHub at **Actions**.
+
+### Manual (for emergencies only)
+
+You can still deploy from your machine if logged in.
 
 ```bash
-# optional: add a deploy script using e.g. peaceiris/actions-gh-pages in CI
+npm run build
+firebase deploy --only hosting --project kindlyroe-website
+firebase deploy --only functions --project kindlyroe-website
 ```
 
-### Option C — Any static host
+## Config
 
-- Upload the contents of `dist/` to your provider or object storage (e.g. S3 + CloudFront)
-
-## Scripts
+### firebase.json
 
 ```json
 {
-  "dev": "vite",
-  "build": "vite build",
-  "preview": "vite preview",
-  "lint": "eslint . --ext .ts,.tsx",
-  "lint:fix": "eslint . --ext .ts,.tsx --fix",
-  "format": "prettier . -w",
-  "format:check": "prettier . -c"
+  "firestore": {
+    "rules": "firestore.rules"
+  },
+  "hosting": {
+    "public": "dist",
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+    "rewrites": [
+      {
+        "source": "/api/submit-interest",
+        "function": { "functionId": "submitInterest", "region": "europe-west2" }
+      },
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  },
+  "functions": {
+    "source": "functions",
+    "runtime": "nodejs20"
+  }
 }
 ```
 
-## 🚀 Deployment
+### .firebaserc
 
-### Quick Commands
-
-```bash
-# Deploy frontend
-npm run build
-firebase deploy --only hosting
-
-# Deploy Cloud Function
-firebase deploy --only "functions:submitInterest"
-
-# View logs
-firebase functions:log --only submitInterest
+```json
+{
+  "projects": {
+    "default": "kindlyroe-website"
+  }
+}
 ```
 
-### Production URLs
+## Quick commands
 
-- **Website**: https://kindlyroe-website.web.app
-- **API**: https://kindlyroe-website.web.app/api/submit-interest
-- **Firebase Console**: https://console.firebase.google.com/project/kindlyroe-website
+```bash
+# Local dev
+npm install
+npm run dev
 
-## 📚 Documentation
+# Build the site
+npm run build
 
-- **[QUICK-REFERENCE.md](QUICK-REFERENCE.md)** - Essential commands and links
-- **[DEPLOYMENT.md](DEPLOYMENT.md)** - Complete deployment guide
-- **[MONITORING-SETUP.md](MONITORING-SETUP.md)** - Alerts and monitoring
-- **[SMOKE-TESTS.md](SMOKE-TESTS.md)** - Testing checklist
-- **[COMPLETED-FEATURES.md](COMPLETED-FEATURES.md)** - Feature list
+# View production logs for a single function
+firebase functions:log --only submitInterest --project kindlyroe-website
+```
 
-## CI/CD
+## Monitoring and troubleshooting
 
-- **Firebase Hosting**: Manual deploys with `firebase deploy`
-- **Cloud Functions**: Gen 2 in `europe-west2`
-- **SPA Routing**: Configured via `firebase.json` rewrites
+- **Check deploys**: GitHub → Actions
+- **Check Hosting**: Firebase Console → Hosting
+- **Check Functions logs**: Firebase Console → Functions, or `firebase functions:log`
 
-## Accessibility & performance
+### Common fixes
 
-- Uses semantic HTML and readable defaults
-- Tailored colour tokens for contrast on warm backgrounds
-- Aims for 90+ Lighthouse on performance, a11y, best practices
+**Permission denied on deploy**  
+Ensure `ci-deployer@kindlyroe-website.iam.gserviceaccount.com` has roles: `firebase.admin`, `cloudfunctions.admin`, `run.admin`, `artifactregistry.reader`, and `iam.serviceAccountUser` on `${PROJECT_NUMBER}-compute@developer.gserviceaccount.com`.
+
+**API not enabled**  
+Enable once in Cloud Shell:
+`cloudfunctions.googleapis.com`, `run.googleapis.com`, `artifactregistry.googleapis.com`, `cloudbuild.googleapis.com`, `eventarc.googleapis.com`, `hosting.googleapis.com`.
+
+**Wrong project or site**  
+Deploy with explicit flags:
+`firebase deploy --project kindlyroe-website`
+and if you have multiple sites:
+`--site YOUR_SITE_ID`.
+
+## Accessibility and performance
+
+- Semantic HTML and readable defaults
+- Custom colour tokens for contrast on warm backgrounds
+- Targets 90+ Lighthouse on performance, accessibility, and best practices
 
 ## Contributing
 
-At this stage, contributions are limited to small fixes in content and styling. Larger features are planned via an internal board.
+Solo development at present. Direct pushes to `main` are fine while setting up.
+
+When collaborators join, we will switch to PRs into `main` and add preview deploys.
 
 ## Licence
 
 All code in this repository is provided under a permissive licence to be confirmed for launch. Content and artwork are reserved.
-
-_Last updated: October 2025_
