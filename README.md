@@ -13,6 +13,16 @@ This repository contains the public-facing website for Kindly Roe, designed to:
 
 _This site is intentionally simple, fast, and low-maintenance._
 
+## ✨ Features
+
+- 🎨 **Beautiful UI** with hand-drawn illustrations
+- 📝 **Interest Form** with Cloud Function backend
+- 🛡️ **Spam Protection** (honeypot + timestamp checks)
+- 🔒 **Secure** (Firestore Admin SDK, locked client rules)
+- 🎯 **Toast Notifications** for user feedback
+- 📊 **Monitoring & Alerts** ready
+- ⚡ **Fast & Reliable** (no SDK timeouts)
+
 ## What's in here
 
 - **Vite + React + TypeScript**
@@ -63,11 +73,41 @@ This is a **static site**, so you can host the `build/` output almost anywhere.
 }
 ```
 
+## 🚀 Deployment
+
+### Quick Commands
+
+```bash
+# Deploy frontend
+npm run build
+firebase deploy --only hosting
+
+# Deploy Cloud Function
+firebase deploy --only "functions:submitInterest"
+
+# View logs
+firebase functions:log --only submitInterest
+```
+
+### Production URLs
+
+- **Website**: https://kindlyroe-website.web.app
+- **API**: https://kindlyroe-website.web.app/api/submit-interest
+- **Firebase Console**: https://console.firebase.google.com/project/kindlyroe-website
+
+## 📚 Documentation
+
+- **[QUICK-REFERENCE.md](QUICK-REFERENCE.md)** - Essential commands and links
+- **[DEPLOYMENT.md](DEPLOYMENT.md)** - Complete deployment guide
+- **[MONITORING-SETUP.md](MONITORING-SETUP.md)** - Alerts and monitoring
+- **[SMOKE-TESTS.md](SMOKE-TESTS.md)** - Testing checklist
+- **[COMPLETED-FEATURES.md](COMPLETED-FEATURES.md)** - Feature list
+
 ## CI/CD
 
-- **GitHub Actions**: Every push to `main` runs linting and builds the project
-- **Netlify**: Auto-deploys from `main` branch, publishes from `dist/` directory
-- **SPA Routing**: Configured with `_redirects` to prevent 404s on page refresh
+- **Firebase Hosting**: Manual deploys with `firebase deploy`
+- **Cloud Functions**: Gen 2 in `europe-west2`
+- **SPA Routing**: Configured via `firebase.json` rewrites
 
 ## Accessibility & performance
 

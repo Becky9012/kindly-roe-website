@@ -4721,3 +4721,30 @@ img {
     transform: none !important;
   }
 }
+
+/* Force the interest form button to be visible, regardless of global styles */
+.kr-btn {
+  all: unset; /* nuke inherited button styles */
+  display: block !important;
+  background: #6c856f !important;
+  color: #ffffff !important;
+  padding: 0.75rem 1.25rem !important;
+  border-radius: 0.5rem !important;
+  text-align: center !important;
+  font-weight: 600 !important;
+  line-height: 1 !important;
+  user-select: none !important;
+}
+
+.kr-btn[disabled] {
+  background: #d1d5db !important;
+  color: #6b7280 !important;
+  cursor: not-allowed !important;
+}
+
+#interest-send {
+  opacity: 1 !important;
+  visibility: visible !important;
+  position: relative !important;
+  z-index: 10 !important;
+}

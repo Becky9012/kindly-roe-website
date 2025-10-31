@@ -1,155 +1,149 @@
-// src/components/InterestForm.tsx
+import { useEffect, useRef, useState } from 'react'
+import { toast } from 'sonner'
 
-import { addDoc, collection, serverTimestamp } from 'firebase/firestore'
-import { useState } from 'react'
-
-import { db } from '../firebaseConfig'
+import { addInterest } from '../lib/interest'
+import { Button } from './ui/button'
+import { Input } from './ui/input'
+import { Label } from './ui/label'
 
 export default function InterestForm() {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
-  const [message, setMessage] = useState('')
-  const [submitting, setSubmitting] = useState(false)
-  const [ok, setOk] = useState(false)
-  const [err, setErr] = useState(false)
+  const [note, setNote] = useState('')
+  const [status, setStatus] = useState<'idle' | 'saving' | 'ok' | 'err'>('idle')
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  // Spam protection: honeypot + timestamp
+  const [honeypot, setHoneypot] = useState('')
+  const formLoadTime = useRef(Date.now())
+
+  // Reset form load time when component mounts
+  useEffect(() => {
+    formLoadTime.current = Date.now()
+  }, [])
+
+  async function onSubmit(e: React.FormEvent) {
     e.preventDefault()
 
-    // Basic guard rails
     if (!name.trim() || !email.trim()) {
-      setErr('Please add your name and email.')
+      toast.error('Please enter your name and email')
       return
     }
 
-    setSubmitting(true)
-    setOk(false)
-    setErr(false)
-
-    try {
-      console.log('Starting Firebase submission...')
-      console.log('Firebase db object:', db)
-      console.log('Collection reference:', collection(db, 'interest'))
-
-      // Test Firebase connection first
-      console.log('Testing Firebase connection...')
-
-      // Add timeout to prevent infinite hanging
-      const timeoutPromise = new Promise((_, reject) =>
-        setTimeout(() => reject(new Error('Request timeout after 10 seconds')), 10000)
-      )
-
-      const firebasePromise = addDoc(collection(db, 'interest'), {
-        name: name.trim(),
-        email: email.trim().toLowerCase(),
-        message: message.trim(),
-        timestamp: serverTimestamp(),
-      })
-
-      console.log('Firebase promise created, waiting for response...')
-      const docRef = await Promise.race([firebasePromise, timeoutPromise])
-
-      console.log('Document written with ID: ', docRef.id)
-
-      setOk(true)
+    // Spam check 1: Honeypot field
+    if (honeypot) {
+      console.warn('[InterestForm] Honeypot triggered - ignoring submission')
+      toast.success("Thanks! We'll be in touch soon.")
       setName('')
       setEmail('')
-      setMessage('')
-    } catch (error) {
-      console.error('Firebase error details:', error)
-      console.error('Error name:', error.name)
-      console.error('Error message:', error.message)
-      console.error('Error code:', error.code)
-      console.error('Error stack:', error.stack)
-      
-      // Check for specific Firestore permission errors
-      if (error.code === 'permission-denied') {
-        setErr('Permission denied: Check Firestore security rules')
-      } else if (error.code === 'unauthenticated') {
-        setErr('Authentication required: Check Firebase configuration')
-      } else if (error.message.includes('timeout')) {
-        setErr('Request timeout: Check network connection')
-      } else {
-        setErr(`Submission failed: ${error.message || 'Unknown error'}`)
-      }
-    } finally {
-      console.log('Finally block: setting submitting to false')
-      setSubmitting(false) // prevents "stuck on Sending…"
+      setNote('')
+      return
+    }
+
+    // Spam check 2: Too fast (< 1 second)
+    const timeSinceLoad = Date.now() - formLoadTime.current
+    if (timeSinceLoad < 1000) {
+      console.warn('[InterestForm] Submission too fast - ignoring')
+      toast.success("Thanks! We'll be in touch soon.")
+      setName('')
+      setEmail('')
+      setNote('')
+      return
+    }
+
+    setStatus('saving')
+
+    try {
+      const result = await addInterest({ name, email, note })
+      console.log('[InterestForm] ✅ SUCCESS - saved doc id:', result.id)
+
+      setStatus('ok')
+      setName('')
+      setEmail('')
+      setNote('')
+
+      toast.success("Thanks! We'll be in touch soon.", {
+        description: 'Your interest has been recorded.',
+      })
+
+      // Reset status after animation
+      setTimeout(() => setStatus('idle'), 3000)
+    } catch (err: unknown) {
+      const error = err instanceof Error ? err : new Error(String(err))
+      console.error('[InterestForm] ❌ ERROR:', error.message)
+      setStatus('err')
+
+      toast.error('Something went wrong', {
+        description: error.message || 'Please try again or contact support.',
+      })
+
+      // Reset error status
+      setTimeout(() => setStatus('idle'), 5000)
     }
   }
 
   return (
-    <form onSubmit={handleSubmit} className="mx-auto max-w-xl px-4 pb-16">
-      <div className="space-y-3">
-        <label htmlFor="name" className="block text-center text-sm">
-          Name
-        </label>
-        <input
+    <form onSubmit={onSubmit} className="mx-auto my-8 grid max-w-[420px] gap-3">
+      {/* Honeypot field - hidden from real users, visible to bots */}
+      <input
+        type="text"
+        name="website"
+        value={honeypot}
+        onChange={(e) => setHoneypot(e.target.value)}
+        tabIndex={-1}
+        autoComplete="off"
+        style={{ position: 'absolute', left: '-9999px', width: '1px', height: '1px' }}
+        aria-hidden="true"
+      />
+
+      <div className="grid gap-2">
+        <Label htmlFor="name">
+          Name <span className="text-red-500">*</span>
+        </Label>
+        <Input
           id="name"
-          className="w-full rounded border px-3 py-2"
+          name="name"
+          autoComplete="name"
+          required
           value={name}
           onChange={(e) => setName(e.target.value)}
-          required
+          disabled={status === 'saving'}
         />
+      </div>
 
-        <label htmlFor="email" className="block text-center text-sm">
-          Email
-        </label>
-        <input
+      <div className="grid gap-2">
+        <Label htmlFor="email">
+          Email <span className="text-red-500">*</span>
+        </Label>
+        <Input
           id="email"
-          className="w-full rounded border px-3 py-2"
+          name="email"
           type="email"
+          autoComplete="email"
+          required
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          required
+          disabled={status === 'saving'}
         />
+      </div>
 
-        <label htmlFor="message" className="block text-center text-sm">
-          Message (optional)
-        </label>
+      <div className="grid gap-2">
+        <Label htmlFor="note">Note</Label>
         <textarea
-          id="message"
-          className="w-full rounded border px-3 py-2"
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
+          id="note"
+          name="note"
+          autoComplete="off"
+          aria-label="Note"
+          value={note}
+          onChange={(e) => setNote(e.target.value)}
+          disabled={status === 'saving'}
+          className="border-input bg-input-background focus-visible:border-ring focus-visible:ring-ring/50 min-h-[80px] w-full rounded-md border px-3 py-2 text-base transition-[color,box-shadow] outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
           rows={3}
         />
       </div>
 
-      <div style={{ marginTop: '16px', width: '100%' }}>
-        <button
-          type="submit"
-          style={{
-            width: '100%',
-            padding: '12px 16px',
-            backgroundColor: submitting || !name.trim() || !email.trim() ? '#d1d5db' : '#6c856f',
-            color: submitting || !name.trim() || !email.trim() ? '#374151' : 'white',
-            border: 'none',
-            borderRadius: '6px',
-            fontSize: '16px',
-            fontWeight: '500',
-            cursor: submitting || !name.trim() || !email.trim() ? 'not-allowed' : 'pointer',
-            display: 'block',
-            visibility: 'visible',
-            opacity: 1,
-            position: 'relative',
-            zIndex: 10,
-            transition: 'background-color 0.2s ease',
-          }}
-          disabled={submitting || !name.trim() || !email.trim()}
-        >
-          {submitting ? 'Sending…' : 'Send'}
-        </button>
-      </div>
-
-      {ok && (
-        <p className="text-sm text-green-700">
-          Thank you for joining our early circle. We'll be in touch.
-        </p>
-      )}
-      {err && (
-        <p className="text-sm text-red-700">Sorry, something went wrong. Please try again.</p>
-      )}
+      <Button type="submit" disabled={status === 'saving'} className="mt-2">
+        {status === 'saving' ? 'Sending…' : 'Send'}
+      </Button>
     </form>
   )
 }

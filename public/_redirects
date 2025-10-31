@@ -1,6 +1,0 @@
-# Allow real files to be served (assets, images, etc.)
-/assets/*  /assets/:splat  200
-/images/*  /images/:splat  200
-
-# SPA fallback for all other routes (no force, allows real files)
-/*  /index.html  200

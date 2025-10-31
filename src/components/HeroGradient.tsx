@@ -1,4 +1,4 @@
-// Using direct paths to public/images for better Netlify compatibility
+// Using direct paths to public/images for better compatibility
 
 export default function HeroGradient() {
   return (

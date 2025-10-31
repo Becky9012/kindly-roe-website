@@ -6,3 +6,12 @@ dist/
 .vscode/
 .idea/
 .DS_Store
+
+# Firebase
+.firebase/
+firebase-debug.log
+firebase-debug.*.log
+*-debug.log
+firebase-credentials.json
+service-account*.json
+*-service-account*.json
