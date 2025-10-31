@@ -49,5 +49,5 @@ jobs:
           npm ci
           npm run build || echo "No build script, skipping"
 
-      - name: Deploy Hosting and Functions
-        run: firebase deploy --only hosting,functions --project kindlyroe-website --non-interactive
+      - name: Deploy Hosting
+        run: firebase deploy --only hosting --project kindlyroe-website --non-interactive
