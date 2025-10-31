@@ -43,16 +43,32 @@ jobs:
       - name: Build project
         run: npm run build
 
-      - name: Build functions
+      - name: Install and build functions
         working-directory: functions
         run: |
+          echo "📦 Installing functions dependencies..."
           npm ci
-          npm run build
-          # Verify build output exists
-          if [ ! -f "lib/index.js" ]; then
-            echo "Error: lib/index.js was not created"
+          echo "✅ Dependencies installed"
+          echo "📋 Verifying firebase-functions is installed..."
+          if [ ! -d "node_modules/firebase-functions" ]; then
+            echo "❌ Error: firebase-functions package not found in node_modules"
+            ls -la node_modules/ | head -20
             exit 1
           fi
+          echo "✅ firebase-functions found"
+          echo "🔨 Building functions..."
+          npm run build
+          echo "✅ Build complete"
+          echo "📋 Verifying build output..."
+          if [ ! -f "lib/index.js" ]; then
+            echo "❌ Error: lib/index.js was not created"
+            echo "Contents of functions directory:"
+            ls -la
+            echo "Contents of lib directory (if exists):"
+            ls -la lib/ 2>&1 || echo "lib directory does not exist"
+            exit 1
+          fi
+          echo "✅ lib/index.js exists"
 
       - name: Deploy Hosting and Functions
         run: firebase deploy --only hosting,functions --project kindlyroe-website --non-interactive
