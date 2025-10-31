@@ -150,4 +150,10 @@ Solo development for now, direct pushes to `main` are fine. When collaborators j
 
 ## Licence
 
-Permissive code licence to be confirmed for launch. Content and artwork reserved.
+© 2025 Kindly Roe Ltd. All rights reserved.
+
+This repository and its contents (including code, text, design, and artwork)
+are proprietary and confidential to Kindly Roe Ltd.
+
+No part of this repository may be reproduced, distributed, or reused without
+prior written permission from Kindly Roe Ltd.
