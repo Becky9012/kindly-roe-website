@@ -45,4 +45,4 @@ jobs:
 
       - name: Deploy to Firebase
         run: |
-          firebase deploy --only hosting,functions
+          firebase deploy --only hosting,functions --project kindlyroe-website --non-interactive
