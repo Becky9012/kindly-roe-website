@@ -39,7 +39,9 @@ async function maybeClearBrowserData() {
         )
       )
     }
-  } catch {}
+  } catch {
+    // Ignore errors during browser data clearing
+  }
 
   // Remove the flag and reload
   params.delete('clear')
