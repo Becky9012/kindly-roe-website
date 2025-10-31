@@ -45,9 +45,7 @@ jobs:
 
       - name: Build functions
         working-directory: functions
-        run: |
-          npm ci
-          npm run build || echo "No build script, skipping"
+        run: npm ci && npm run build || echo "skip"
 
       - name: Deploy Hosting and Functions
         run: firebase deploy --only hosting,functions --project kindlyroe-website --non-interactive

@@ -1,7 +1,10 @@
-import { onRequest } from 'firebase-functions/v2/https'
+import { onRequest, setGlobalOptions } from 'firebase-functions/v2/https'
 import { initializeApp } from 'firebase-admin/app'
 import { getFirestore, Timestamp } from 'firebase-admin/firestore'
 import cors from 'cors'
+
+// Set global options for all functions
+setGlobalOptions({ region: 'europe-west2' })
 
 // Initialise Admin SDK
 initializeApp()
@@ -26,7 +29,6 @@ const corsMiddleware = cors({
 
 export const submitInterest = onRequest(
   {
-    region: 'europe-west2',
     cors: true,
   },
   (req, res) => {
