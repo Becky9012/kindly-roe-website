@@ -70,5 +70,24 @@ jobs:
           fi
           echo "✅ lib/index.js exists"
 
+      - name: Verify functions are ready for deployment
+        run: |
+          echo "🔍 Pre-deploy verification..."
+          echo "Checking functions/lib/index.js..."
+          if [ ! -f "functions/lib/index.js" ]; then
+            echo "❌ Error: functions/lib/index.js not found from root directory"
+            ls -la functions/ || echo "functions directory not found"
+            exit 1
+          fi
+          echo "✅ functions/lib/index.js exists"
+          echo "Checking functions/node_modules/firebase-functions..."
+          if [ ! -d "functions/node_modules/firebase-functions" ]; then
+            echo "❌ Error: functions/node_modules/firebase-functions not found from root directory"
+            ls -la functions/node_modules/ 2>&1 | head -10 || echo "functions/node_modules not found"
+            exit 1
+          fi
+          echo "✅ functions/node_modules/firebase-functions exists"
+          echo "✅ All checks passed, ready to deploy"
+
       - name: Deploy Hosting and Functions
         run: firebase deploy --only hosting,functions --project kindlyroe-website --non-interactive
