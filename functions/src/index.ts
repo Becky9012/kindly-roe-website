@@ -1,6 +1,6 @@
+import cors from 'cors'
 import { initializeApp } from 'firebase-admin/app'
 import { getFirestore, Timestamp } from 'firebase-admin/firestore'
-import cors from 'cors'
 import { setGlobalOptions } from 'firebase-functions/v2'
 import { onRequest } from 'firebase-functions/v2/https'
 
