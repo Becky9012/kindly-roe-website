@@ -7,6 +7,7 @@
   --font-serif: 'minion-pro', serif;
   --font-roe: 'above-the-beyond', sans-serif;
   --letter-spacing-roe: -0.046em; /* -46 tracking */
+  --header-h: 64px;
 
   /* 🌿 Kindly Roe Core Palette — without Sage */
 
@@ -169,6 +170,30 @@
   body {
     @apply bg-background text-foreground;
     font-family: var(--font-serif);
+    overflow-x: hidden;
+  }
+
+  /* Allow hero section to extend beyond viewport for decorative images */
+  section[aria-label*="calm companion"] {
+    overflow-x: visible !important;
+    position: relative;
+  }
+
+  html,
+  body,
+  #root {
+    min-height: 100%;
+  }
+
+  #root {
+    overflow-x: visible;
+    position: relative;
+  }
+
+  /* Create a wrapper that allows hero images to extend */
+  #root > div {
+    overflow-x: visible;
+    position: relative;
   }
 
   /* Subtle texture overlay for natural feel */
@@ -293,4 +318,36 @@
 
 html {
   font-size: var(--font-size);
+}
+
+/* Hero gradient background */
+.hero-gradient {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(1200px 600px at 15% 20%, rgba(217, 144, 98, 0.35), transparent 70%),
+    radial-gradient(1400px 700px at 85% 30%, rgba(20, 84, 95, 0.35), transparent 70%),
+    radial-gradient(900px 500px at 70% 85%, rgba(64, 33, 68, 0.28), transparent 70%),
+    linear-gradient(#fbf8f2, #fbf8f2);
+  z-index: -1;
+}
+
+/* Hero section overflow handling */
+.hero-section {
+  overflow-x: visible;
+}
+
+/* Hero image positioning */
+.hero-image-left {
+  position: absolute;
+  left: -4vw;
+  max-width: 480px;
+  height: auto;
+}
+
+.hero-image-right {
+  position: absolute;
+  right: -4vw;
+  max-width: 520px;
+  height: auto;
 }

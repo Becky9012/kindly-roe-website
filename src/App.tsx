@@ -3,16 +3,15 @@ import { motion } from 'motion/react'
 import { useEffect } from 'react'
 import { Toaster } from 'sonner'
 
-import familyCard from '@/assets/familycard.svg'
-import adultCard from '@/assets/girlcard1.svg'
-
 import { BrandIllustration } from './components/BrandIllustration'
 import { ImageWithFallback } from './components/figma/ImageWithFallback'
 import { HandDrawnArrow } from './components/HandDrawnArrow'
 import { HandDrawnCircle } from './components/HandDrawnCircle'
 import { HandDrawnUnderline } from './components/HandDrawnUnderline'
+import Hero from './components/Hero'
 import InterestForm from './components/InterestForm'
 import { KindlyRoeLogo } from './components/KindlyRoeLogo'
+import NavBar from './components/NavBar'
 import { RoeLogo } from './components/RoeLogo'
 import { Button } from './components/ui/button'
 import { Card } from './components/ui/card'
@@ -49,60 +48,8 @@ export default function App() {
   return (
     <>
       <Toaster position="top-center" richColors />
-      {/* Hero */}
-      <section className="relative overflow-hidden">
-        {/* soft background */}
-        <div className="pointer-events-none absolute inset-0">
-          <div className="bg-copper-200/25 absolute -top-24 -left-24 h-72 w-72 rounded-full blur-2xl" />
-          <div className="absolute top-0 right-[-10%] h-[22rem] w-[22rem] rounded-full bg-teal-300/20 blur-3xl" />
-        </div>
-
-        <div className="relative mx-auto max-w-6xl px-4 py-10 md:py-14 lg:py-16">
-          <div className="grid items-center gap-8 md:grid-cols-2">
-            {/* copy */}
-            <div className="max-w-lg space-y-4">
-              <h1 className="text-2xl leading-tight sm:text-3xl md:text-4xl">
-                Finding your way through the maze, together
-              </h1>
-              <p className="text-sm text-neutral-700/90 md:text-base">
-                Two gentle paths. Choose what fits today.
-              </p>
-              <div className="flex flex-wrap items-center gap-3">
-                <a
-                  href="#"
-                  className="bg-copper-600/90 hover:bg-copper-600 focus-visible:outline-copper-500 inline-flex h-10 items-center rounded-full px-5 text-white shadow-sm backdrop-blur-sm focus-visible:outline-2"
-                >
-                  For Families · Find guidance
-                </a>
-                <a
-                  href="#"
-                  className="focus-visible:outline-copper-500 inline-flex h-10 items-center rounded-full bg-white/70 px-5 shadow-sm ring-1 ring-black/10 backdrop-blur-sm hover:bg-white focus-visible:outline-2"
-                >
-                  For Adults · Explore support
-                </a>
-              </div>
-            </div>
-
-            {/* illustration stage */}
-            <div className="relative h-72 sm:h-80 md:h-[24rem]">
-              <img
-                src={familyCard}
-                alt=""
-                aria-hidden="true"
-                className="pointer-events-none absolute bottom-0 left-0 w-44 drop-shadow-[0_8px_30px_rgba(0,0,0,0.12)] select-none sm:w-52 md:w-56 lg:w-60"
-                loading="eager"
-              />
-              <img
-                src={adultCard}
-                alt=""
-                aria-hidden="true"
-                className="pointer-events-none absolute right-2 bottom-0 w-44 drop-shadow-[0_8px_30px_rgba(0,0,0,0.12)] select-none sm:w-48 md:w-52 lg:w-60"
-                loading="eager"
-              />
-            </div>
-          </div>
-        </div>
-      </section>
+      <NavBar />
+      <Hero />
 
       {/* Main Content Container */}
       <div className="main-container relative w-full bg-[var(--kr-bg)]">
