@@ -1,3 +1,5 @@
+/* eslint-env node */
+
 // Debug Firebase connection
 import { initializeApp } from 'firebase/app'
 import { getFirestore, addDoc, collection, serverTimestamp } from 'firebase/firestore'

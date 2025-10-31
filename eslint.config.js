@@ -85,6 +85,26 @@ export default tseslint.config(
     },
   },
   {
+    files: ['*.js'],
+    languageOptions: {
+      globals: {
+        console: 'readonly',
+        process: 'readonly',
+        Buffer: 'readonly',
+        global: 'readonly',
+        __dirname: 'readonly',
+        __filename: 'readonly',
+        module: 'readonly',
+        require: 'readonly',
+        exports: 'readonly',
+      },
+    },
+    rules: {
+      'no-console': 'off',
+      'no-unused-vars': 'off',
+    },
+  },
+  {
     ignores: ['build', 'dist', 'node_modules', '*.config.js', '*.config.cjs'],
   }
 )
