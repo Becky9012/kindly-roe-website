@@ -45,7 +45,14 @@ jobs:
 
       - name: Build functions
         working-directory: functions
-        run: npm ci && npm run build || echo "skip"
+        run: |
+          npm ci
+          npm run build
+          # Verify build output exists
+          if [ ! -f "lib/index.js" ]; then
+            echo "Error: lib/index.js was not created"
+            exit 1
+          fi
 
       - name: Deploy Hosting and Functions
         run: firebase deploy --only hosting,functions --project kindlyroe-website --non-interactive
