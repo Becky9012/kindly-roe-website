@@ -84,21 +84,48 @@ jobs:
 
       - name: Verify functions are ready for deployment
         run: |
-          echo "🔍 Pre-deploy verification..."
-          echo "Checking functions/lib/index.js..."
+          echo "🔍 Pre-deploy verification from root directory..."
+          echo "Current directory: $(pwd)"
+          echo ""
+          echo "📋 Checking functions directory structure:"
+          ls -la functions/ | head -15 || echo "functions directory not found"
+          echo ""
+          echo "📋 Checking functions/lib/index.js..."
           if [ ! -f "functions/lib/index.js" ]; then
             echo "❌ Error: functions/lib/index.js not found from root directory"
-            ls -la functions/ || echo "functions directory not found"
+            echo "Contents of functions directory:"
+            ls -la functions/
+            echo "Contents of functions/lib (if exists):"
+            ls -la functions/lib/ 2>&1 || echo "functions/lib directory does not exist"
             exit 1
           fi
-          echo "✅ functions/lib/index.js exists"
-          echo "Checking functions/node_modules/firebase-functions..."
-          if [ ! -d "functions/node_modules/firebase-functions" ]; then
-            echo "❌ Error: functions/node_modules/firebase-functions not found from root directory"
-            ls -la functions/node_modules/ 2>&1 | head -10 || echo "functions/node_modules not found"
+          echo "✅ functions/lib/index.js exists ($(wc -c < functions/lib/index.js) bytes)"
+          echo ""
+          echo "📋 Checking functions/package.json..."
+          if [ ! -f "functions/package.json" ]; then
+            echo "❌ Error: functions/package.json not found"
             exit 1
+          fi
+          echo "✅ functions/package.json exists"
+          echo ""
+          echo "📋 Checking functions/node_modules/firebase-functions..."
+          if [ ! -d "functions/node_modules/firebase-functions" ]; then
+            echo "❌ Error: functions/node_modules/firebase-functions not found"
+            echo "Contents of functions/node_modules (if exists):"
+            ls -la functions/node_modules/ 2>&1 | head -20 || echo "functions/node_modules does not exist"
+            echo ""
+            echo "🔍 Checking if npm install completed..."
+            if [ ! -d "functions/node_modules" ]; then
+              echo "⚠️  functions/node_modules doesn't exist - running npm install..."
+              cd functions && npm install && cd ..
+            fi
+            if [ ! -d "functions/node_modules/firebase-functions" ]; then
+              echo "❌ Still missing after install attempt"
+              exit 1
+            fi
           fi
           echo "✅ functions/node_modules/firebase-functions exists"
+          echo ""
           echo "✅ All checks passed, ready to deploy"
 
       - name: Deploy Hosting and Functions
