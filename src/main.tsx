@@ -25,8 +25,10 @@ async function maybeClearBrowserData() {
     // Clear storage
     localStorage.clear()
     sessionStorage.clear()
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     if ((indexedDB as any)?.databases) {
       // Not supported in all browsers, but helpful where available
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const dbs: Array<{ name?: string }> = await (indexedDB as any).databases()
       await Promise.all(
         dbs.map((db) =>

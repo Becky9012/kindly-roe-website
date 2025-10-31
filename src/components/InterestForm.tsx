@@ -53,8 +53,8 @@ export default function InterestForm() {
     setStatus('saving')
 
     try {
-      const result = await addInterest({ name, email, note })
-      console.log('[InterestForm] ✅ SUCCESS - saved doc id:', result.id)
+      await addInterest({ name, email, note })
+      // Success - document saved
 
       setStatus('ok')
       setName('')

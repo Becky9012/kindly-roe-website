@@ -105,6 +105,6 @@ export default tseslint.config(
     },
   },
   {
-    ignores: ['build', 'dist', 'node_modules', '*.config.js', '*.config.cjs'],
+    ignores: ['build', 'dist', 'node_modules', '*.config.js', '*.config.cjs', '.eslintrc.cjs', 'functions/.eslintrc.cjs', 'functions/lib/**', 'functions/**/*.js'],
   }
 )

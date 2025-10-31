@@ -18,32 +18,32 @@ console.log('🔧 Testing Firebase connection...')
 console.log('Config:', {
   projectId: firebaseConfig.projectId,
   authDomain: firebaseConfig.authDomain,
-  apiKey: firebaseConfig.apiKey.substring(0, 10) + '...'
+  apiKey: firebaseConfig.apiKey.substring(0, 10) + '...',
 })
 
 try {
   // Initialize Firebase
   const app = initializeApp(firebaseConfig)
   console.log('✅ Firebase app initialized')
-  
+
   // Get Firestore
   const db = getFirestore(app)
   console.log('✅ Firestore instance created')
-  
+
   // Test collection reference
   const testCollection = collection(db, 'interest')
   console.log('✅ Collection reference created:', testCollection.path)
-  
+
   // Test adding a document
   console.log('🧪 Testing document write...')
-  
+
   const testData = {
     name: 'Test User',
     email: 'test@example.com',
     message: 'This is a test submission',
     timestamp: serverTimestamp(),
   }
-  
+
   addDoc(testCollection, testData)
     .then((docRef) => {
       console.log('✅ Document written successfully with ID:', docRef.id)
@@ -58,7 +58,6 @@ try {
       console.error('Full error:', error)
       process.exit(1)
     })
-    
 } catch (error) {
   console.error('❌ Firebase initialization failed:')
   console.error('Error name:', error.name)

@@ -1,7 +1,7 @@
-import { onRequest, setGlobalOptions } from 'firebase-functions/v2/https'
 import { initializeApp } from 'firebase-admin/app'
 import { getFirestore, Timestamp } from 'firebase-admin/firestore'
 import cors from 'cors'
+import { onRequest, setGlobalOptions } from 'firebase-functions/v2/https'
 
 // Set global options for all functions
 setGlobalOptions({ region: 'europe-west2' })
