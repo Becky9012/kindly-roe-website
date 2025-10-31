@@ -17,14 +17,14 @@ Complete guide to connect `kindlyroe.com` to your Firebase Hosting site.
 ### Step 1: Add Custom Domain in Firebase Console
 
 1. **Open Firebase Hosting:**
-   - URL: https://console.firebase.google.com/project/kindlyroe-website/hosting
+   - URL: <https://console.firebase.google.com/project/kindlyroe-website/hosting>
    - Or: Firebase Console → Hosting
 
 2. **Click "Add custom domain"**
 
 3. **Enter your domain:**
 
-   ```
+   ```text
    kindlyroe.com
    ```
 
@@ -36,7 +36,7 @@ Complete guide to connect `kindlyroe.com` to your Firebase Hosting site.
 
    Firebase will provide a **TXT record** to add to your DNS:
 
-   ```
+   ```text
    Type: TXT
    Name: @ (or root)
    Value: [Firebase will provide this]
@@ -52,7 +52,7 @@ After verifying ownership, you'll need to add these DNS records:
 
 #### Option A: Using A Records (Recommended for apex domain)
 
-```
+```text
 Type: A
 Name: @ (or root domain)
 Value: [Firebase will provide IP addresses]
@@ -69,7 +69,7 @@ Firebase typically provides these IPs:
 
 #### Option B: Using CNAME (for www only)
 
-```
+```text
 Type: CNAME
 Name: www
 Value: kindlyroe-website.web.app.
@@ -118,7 +118,7 @@ curl -X POST "https://kindlyroe.com/api/submit-interest" \
 1. Go to DNS settings
 2. Add records:
 
-   ```
+   ```text
    Type: A
    Name: @
    IPv4: [Firebase IP 1]
@@ -151,7 +151,7 @@ curl -X POST "https://kindlyroe.com/api/submit-interest" \
 1. Go to DNS Management
 2. Add A records:
 
-   ```
+   ```text
    Type: A
    Host: @
    Points to: [Firebase IP 1]
@@ -182,7 +182,7 @@ curl -X POST "https://kindlyroe.com/api/submit-interest" \
 1. Go to DNS settings
 2. Add Custom records:
 
-   ```
+   ```text
    Host: @
    Type: A
    Data: [Firebase IP 1]
@@ -209,7 +209,7 @@ curl -X POST "https://kindlyroe.com/api/submit-interest" \
 1. Advanced DNS settings
 2. Add records:
 
-   ```
+   ```text
    Type: A Record
    Host: @
    Value: [Firebase IP 1]
@@ -245,7 +245,7 @@ dig kindlyroe.com A +short
 dig www.kindlyroe.com A +short
 
 # Check from multiple locations
-# Visit: https://dnschecker.org/#A/kindlyroe.com
+# Visit: <https://dnschecker.org/#A/kindlyroe.com>
 ```
 
 ### Check SSL Certificate
@@ -260,11 +260,11 @@ openssl s_client -connect kindlyroe.com:443 -servername kindlyroe.com < /dev/nul
 
 ### Test Form Submission
 
-1. Visit: https://kindlyroe.com
+1. Visit: <https://kindlyroe.com>
 2. Fill out the interest form
 3. Submit
 4. Should see: "Thanks! We'll be in touch soon."
-5. Verify in Firestore: https://console.firebase.google.com/project/kindlyroe-website/firestore
+5. Verify in Firestore: <https://console.firebase.google.com/project/kindlyroe-website/firestore>
 
 ---
 
@@ -277,7 +277,7 @@ openssl s_client -connect kindlyroe.com:443 -servername kindlyroe.com < /dev/nul
 
 1. Verify DNS records are correct
 2. Wait 1-24 hours for propagation
-3. Check DNS propagation: https://dnschecker.org
+3. Check DNS propagation: <https://dnschecker.org>
 
 ### "SSL certificate provisioning failed"
 
@@ -317,8 +317,8 @@ gcloud functions describe submitInterest \
 
 Once domain is connected:
 
-- [ ] Visit https://kindlyroe.com - Site loads
-- [ ] Visit https://www.kindlyroe.com - Redirects or loads
+- [ ] Visit <https://kindlyroe.com> - Site loads
+- [ ] Visit <https://www.kindlyroe.com> - Redirects or loads
 - [ ] Test form submission on custom domain
 - [ ] Verify Firestore document created
 - [ ] Check SSL certificate (green padlock in browser)
@@ -344,7 +344,7 @@ After domain is connected, update uptime check:
 
 To add second uptime check for custom domain:
 
-1. Go to: https://console.cloud.google.com/monitoring/uptime?project=kindlyroe-website
+1. Go to: <https://console.cloud.google.com/monitoring/uptime?project=kindlyroe-website>
 2. Create new check for `kindlyroe.com`
 3. Same settings as existing check
 
@@ -411,8 +411,8 @@ Firebase Hosting automatically handles:
 
 ### Submit to search engines
 
-- Google Search Console: https://search.google.com/search-console
-- Bing Webmaster Tools: https://www.bing.com/webmasters
+- Google Search Console: <https://search.google.com/search-console>
+- Bing Webmaster Tools: <https://www.bing.com/webmasters>
 
 ---
 
@@ -430,18 +430,18 @@ Firebase Hosting automatically handles:
 
 ### Firebase Support Docs
 
-- Custom Domains: https://firebase.google.com/docs/hosting/custom-domain
-- Troubleshooting: https://firebase.google.com/docs/hosting/troubleshooting
+- Custom Domains: <https://firebase.google.com/docs/hosting/custom-domain>
+- Troubleshooting: <https://firebase.google.com/docs/hosting/troubleshooting>
 
 ### Check Status
 
-- Firebase Status: https://status.firebase.google.com
-- Google Cloud Status: https://status.cloud.google.com
+- Firebase Status: <https://status.firebase.google.com>
+- Google Cloud Status: <https://status.cloud.google.com>
 
 ### Common Issues
 
-- DNS Checker: https://dnschecker.org
-- SSL Checker: https://www.ssllabs.com/ssltest/
+- DNS Checker: <https://dnschecker.org>
+- SSL Checker: <https://www.ssllabs.com/ssltest/>
 
 ---
 
@@ -450,11 +450,11 @@ Firebase Hosting automatically handles:
 Your domain is fully set up when:
 
 - [✅] Domain shows "Connected" in Firebase Console
-- [✅] https://kindlyroe.com loads your site
-- [✅] https://www.kindlyroe.com works
+- [✅] <https://kindlyroe.com> loads your site
+- [✅] <https://www.kindlyroe.com> works
 - [✅] Green padlock (SSL) shows in browser
 - [✅] Form submission works
-- [✅] API responds: https://kindlyroe.com/api/submit-interest
+- [✅] API responds: <https://kindlyroe.com/api/submit-interest>
 - [✅] No CORS errors in browser console
 
 ---
@@ -472,4 +472,4 @@ Your domain is fully set up when:
 **Next Step**: Add domain in Firebase Console  
 **Estimated Time**: 1-24 hours for full propagation
 
-**Start here**: https://console.firebase.google.com/project/kindlyroe-website/hosting
+**Start here**: <https://console.firebase.google.com/project/kindlyroe-website/hosting>

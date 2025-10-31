@@ -1,35 +1,28 @@
 # Kindly Roe — Public Website
 
-> _A calm, emotionally intelligent website that introduces Kindly Roe and its foundations, built as a fast, accessible static site._
+A calm, emotionally intelligent website that introduces Kindly Roe and its foundations, built as a fast, accessible static site.
+
+![Deploy](https://github.com/Becky9012/kindly-roe-website/actions/workflows/firebase-deploy.yml/badge.svg)
 
 ## Overview
 
-This repository contains the public-facing website for Kindly Roe, designed to:
+This site explains the vision, signposts the two pathways (For Families, For Adults), invites interest, and builds a gentle sense of community. It is intentionally simple, fast, and low-maintenance.
 
-- explain the vision and what the product is becoming,
-- signpost the two pathways, **For Families** and **For Adults**,
-- share thoughtful updates and invite interest,
-- begin to build a gentle sense of community around Roe's values of curiosity, compassion, and understanding.
+## Features
 
-_This site is intentionally simple, fast, and low-maintenance._
+- 🎨 Beautiful UI with hand-drawn illustrations
+- 📝 Interest form with Cloud Function backend
+- 🛡️ Spam protection (honeypot + timestamp checks)
+- 🔒 Secure defaults (no client SDK, locked rules)
+- 📊 Monitoring & alerts ready
+- ⚡ Fast & reliable (static hosting)
 
-## ✨ Features
+## Tech
 
-- 🎨 **Beautiful UI** with hand-drawn illustrations
-- 📝 **Interest Form** with Cloud Function backend
-- 🛡️ **Spam Protection** (honeypot + timestamp checks)
-- 🔒 **Secure** (Firestore Admin SDK, locked client rules)
-- 🎯 **Toast Notifications** for user feedback
-- 📊 **Monitoring & Alerts** ready
-- ⚡ **Fast & Reliable** (no SDK timeouts)
-
-## What's in here
-
-- **Vite + React + TypeScript**
-- **Tailwind CSS** with custom tokens for colour and typography
-- Hand-drawn illustration styling and soft copper accents
-- Lightweight component set (shadcn/ui) for cards, buttons, and layout
-- No server or database, no trackers, minimal JavaScript
+- Vite + React + TypeScript
+- Tailwind tokens for colour and typography
+- Lightweight UI (shadcn/ui)
+- No trackers, minimal JavaScript
 
 ## Local development
 
@@ -42,38 +35,37 @@ npm run preview
 
 ## CI/CD
 
-This repo deploys with **GitHub Actions** using **Google Workload Identity Federation**, so there are no JSON keys or Firebase tokens.
+This repo deploys with **GitHub Actions** using **Google Workload Identity Federation**. No JSON keys or Firebase tokens.
 
-- **Branch that deploys to production**: `main`
+- **Production branch**: `main`
 - **Firebase project**: `kindlyroe-website`
-- **Service account**: `ci-deployer@kindlyroe-website.iam.gserviceaccount.com`
-- **Workflow file**: `.github/workflows/firebase-deploy.yml`
+- **Workflow**: `.github/workflows/firebase-deploy.yml`
 
-The workflow:
+Pipeline:
 
-1. Checks out the repo
-2. Authenticates to Google Cloud using WIF
-3. Installs Node 20 and the Firebase CLI
-4. Builds the website
-5. Builds functions if present
-6. Deploys to Firebase Hosting and Cloud Functions
+1. Checkout
+2. WIF auth → Google Cloud
+3. Install Node 20 + Firebase CLI
+4. Build web
+5. Build functions (if present)
+6. Deploy Hosting and Functions
 
-Run it by pushing to `main` or using **Actions** → **Run workflow**.
+Run by pushing to `main` or via **Actions** → **Run workflow**.
+
+### Preview deploys (optional, for PRs)
+
+Add later: a second workflow that runs on `pull_request` and publishes a temporary Hosting channel for review. Not enabled yet.
 
 ## Deployment
 
 ### Automatic (recommended)
 
-Pushing to `main` will deploy to:
+Pushing to `main` deploys to:
 
-- **Hosting**: `kindlyroe-website`
+- **Hosting**: project `kindlyroe-website`
 - **Functions**: Gen 2 in `europe-west2` (if present)
 
-You will see the run in GitHub at **Actions**.
-
-### Manual (for emergencies only)
-
-You can still deploy from your machine if logged in.
+### Manual (fallback)
 
 ```bash
 npm run build
@@ -81,33 +73,36 @@ firebase deploy --only hosting --project kindlyroe-website
 firebase deploy --only functions --project kindlyroe-website
 ```
 
-## Config
+## Configuration
 
 ### firebase.json
 
 ```json
 {
-  "firestore": {
-    "rules": "firestore.rules"
-  },
+  "firestore": { "rules": "firestore.rules" },
   "hosting": {
     "public": "dist",
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+    "headers": [
+      {
+        "source": "**/*.@(js|css)",
+        "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
+      },
+      {
+        "source": "**/*.@(png|jpg|jpeg|gif|webp|svg|ico|woff|woff2)",
+        "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
+      },
+      { "source": "**", "headers": [{ "key": "Cache-Control", "value": "no-store" }] }
+    ],
     "rewrites": [
       {
         "source": "/api/submit-interest",
         "function": { "functionId": "submitInterest", "region": "europe-west2" }
       },
-      {
-        "source": "**",
-        "destination": "/index.html"
-      }
+      { "source": "**", "destination": "/index.html" }
     ]
   },
-  "functions": {
-    "source": "functions",
-    "runtime": "nodejs20"
-  }
+  "functions": { "source": "functions", "runtime": "nodejs20" }
 }
 ```
 
@@ -124,50 +119,35 @@ firebase deploy --only functions --project kindlyroe-website
 ## Quick commands
 
 ```bash
-# Local dev
-npm install
-npm run dev
-
-# Build the site
+# Build site
 npm run build
 
-# View production logs for a single function
+# Tail logs for one function
 firebase functions:log --only submitInterest --project kindlyroe-website
 ```
 
-## Monitoring and troubleshooting
+## Monitoring & troubleshooting
 
-- **Check deploys**: GitHub → Actions
-- **Check Hosting**: Firebase Console → Hosting
-- **Check Functions logs**: Firebase Console → Functions, or `firebase functions:log`
+- **Deploys**: GitHub → Actions
+- **Hosting**: Firebase Console → Hosting
+- **Functions logs**: Firebase Console → Functions, or the command above
 
-### Common fixes
+Common fixes:
 
-**Permission denied on deploy**  
-Ensure `ci-deployer@kindlyroe-website.iam.gserviceaccount.com` has roles: `firebase.admin`, `cloudfunctions.admin`, `run.admin`, `artifactregistry.reader`, and `iam.serviceAccountUser` on `${PROJECT_NUMBER}-compute@developer.gserviceaccount.com`.
+- **Permission denied**: ensure `ci-deployer@kindlyroe-website.iam.gserviceaccount.com` has roles `firebase.admin`, `cloudfunctions.admin`, `run.admin`, `artifactregistry.reader`, and `iam.serviceAccountUser` on `${PROJECT_NUMBER}-compute@developer.gserviceaccount.com`.
+- **API not enabled**: enable `cloudfunctions.googleapis.com`, `run.googleapis.com`, `artifactregistry.googleapis.com`, `cloudbuild.googleapis.com`, `eventarc.googleapis.com`, `hosting.googleapis.com`.
+- **Wrong project/site**: add `--project kindlyroe-website` and if needed `--site YOUR_SITE_ID`.
 
-**API not enabled**  
-Enable once in Cloud Shell:
-`cloudfunctions.googleapis.com`, `run.googleapis.com`, `artifactregistry.googleapis.com`, `cloudbuild.googleapis.com`, `eventarc.googleapis.com`, `hosting.googleapis.com`.
+## Accessibility & performance
 
-**Wrong project or site**  
-Deploy with explicit flags:
-`firebase deploy --project kindlyroe-website`
-and if you have multiple sites:
-`--site YOUR_SITE_ID`.
-
-## Accessibility and performance
-
-- Semantic HTML and readable defaults
-- Custom colour tokens for contrast on warm backgrounds
-- Targets 90+ Lighthouse on performance, accessibility, and best practices
+- Semantic HTML, readable defaults
+- Custom colour tokens with contrast on warm backgrounds
+- Targets 90+ Lighthouse for performance, a11y, best practices
 
 ## Contributing
 
-Solo development at present. Direct pushes to `main` are fine while setting up.
-
-When collaborators join, we will switch to PRs into `main` and add preview deploys.
+Solo development for now, direct pushes to `main` are fine. When collaborators join, we'll switch to PRs and add preview deploys.
 
 ## Licence
 
-All code in this repository is provided under a permissive licence to be confirmed for launch. Content and artwork are reserved.
+Permissive code licence to be confirmed for launch. Content and artwork reserved.
