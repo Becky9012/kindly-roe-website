@@ -1,4 +1,4 @@
-# ✅ Workload Identity Federation Setup Complete!
+# ✅ Workload Identity Federation Setup Complete
 
 **Status**: Fully configured and ready to use!
 
@@ -36,19 +36,19 @@
 
 ### Workload Identity Provider Resource
 
-```
+```text
 projects/108074550869/locations/global/workloadIdentityPools/github-pool/providers/github-provider
 ```
 
 ### Service Account
 
-```
+```text
 ci-deployer@kindlyroe-website.iam.gserviceaccount.com
 ```
 
 ### Repository
 
-```
+```text
 Becky9012/kindly-roe-website
 ```
 
@@ -106,13 +106,13 @@ Your workflow (`.github/workflows/firebase-deploy.yml`) is configured with:
    ```
 
 2. **Monitor deployment:**
-   - Go to: `https://github.com/Becky9012/kindly-roe-website/actions`
+   - Go to: <https://github.com/Becky9012/kindly-roe-website/actions>
    - Watch the workflow run
    - Should deploy automatically!
 
 ### Manual Trigger
 
-1. Go to: `https://github.com/Becky9012/kindly-roe-website/actions`
+1. Go to: <https://github.com/Becky9012/kindly-roe-website/actions>
 2. Select: **"Deploy to Firebase"** workflow
 3. Click: **"Run workflow"**
 4. Select branch: `main`
@@ -158,12 +158,12 @@ gcloud logging read \
 ### Check Workload Identity Usage
 
 **Cloud Console:**
-https://console.cloud.google.com/iam-admin/workload-identity-pools?project=kindlyroe-website
+<https://console.cloud.google.com/iam-admin/workload-identity-pools?project=kindlyroe-website>
 
 ### View Service Account
 
 **Service Accounts:**
-https://console.cloud.google.com/iam-admin/serviceaccounts?project=kindlyroe-website
+<https://console.cloud.google.com/iam-admin/serviceaccounts?project=kindlyroe-website>
 
 ### View IAM Bindings
 
@@ -229,5 +229,5 @@ In GitHub Actions, click on the failed workflow run to see detailed error messag
 
 **Setup Date**: 2025-10-30  
 **Repository**: Becky9012/kindly-roe-website  
-**Service Account**: ci-deployer@kindlyroe-website.iam.gserviceaccount.com  
+**Service Account**: `ci-deployer@kindlyroe-website.iam.gserviceaccount.com`  
 **Status**: ✅ **Ready for Production**

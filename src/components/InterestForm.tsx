@@ -91,7 +91,7 @@ export default function InterestForm() {
         onChange={(e) => setHoneypot(e.target.value)}
         tabIndex={-1}
         autoComplete="off"
-        style={{ position: 'absolute', left: '-9999px', width: '1px', height: '1px' }}
+        className="absolute -left-[9999px] h-px w-px"
         aria-hidden="true"
       />
 
