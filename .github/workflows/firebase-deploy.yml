@@ -31,6 +31,18 @@ jobs:
           workload_identity_provider: projects/108074550869/locations/global/workloadIdentityPools/github-pool/providers/github-provider
           service_account: ci-deployer@kindlyroe-website.iam.gserviceaccount.com
 
+      - name: Setup Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
+
+      - name: Enable required APIs
+        run: |
+          gcloud services enable cloudbilling.googleapis.com --project=kindlyroe-website || echo "API may already be enabled"
+          gcloud services enable cloudfunctions.googleapis.com --project=kindlyroe-website || echo "API may already be enabled"
+          gcloud services enable cloudbuild.googleapis.com --project=kindlyroe-website || echo "API may already be enabled"
+          gcloud services enable artifactregistry.googleapis.com --project=kindlyroe-website || echo "API may already be enabled"
+          gcloud services enable run.googleapis.com --project=kindlyroe-website || echo "API may already be enabled"
+          gcloud services enable eventarc.googleapis.com --project=kindlyroe-website || echo "API may already be enabled"
+
       - name: Install dependencies
         run: npm ci
 
